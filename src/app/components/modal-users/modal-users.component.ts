@@ -24,8 +24,7 @@ export class ModalUsersComponent  implements OnInit {
     if(value.target.classList.contains('modal-background')) this.hideModalEvent.emit(false);
   }
 
-  userSelected(e : any, password : string){
-    let email = e.target.textContent;
+  userSelected(email : string, password : string){
     this.userSelectedEvent.emit({email: email, password: password})
     this.hideModalEvent.emit(false);
   }
