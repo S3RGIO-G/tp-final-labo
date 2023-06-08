@@ -1,0 +1,24 @@
+<app-navbar (loadingEvent)="loading = $event" (userEvent)="user = $event"></app-navbar>
+<div class="main d-flex justify-content-center align-items-center">
+
+  <div class="text-center">
+    <h2>Usuarios</h2>
+    <div class="table-container p-3 bg-color-primary  d-flex flex-column gap-4">
+      <div class="h-50 overflow-y-auto px-2">
+        <app-table-usuarios [especialistasList]="especialistasList" [headers]="['Usuario', 'DNI', 'Edad', 'Especialidad', 'Habilitado']" (changeValidityEvent)="changeValidity($event)"></app-table-usuarios>
+      </div>
+      <div class="h-50 overflow-y-auto px-2">
+        <app-table-usuarios [pacientesList]="pacientesList" [headers]="['Usuario', 'DNI', 'Edad', 'Obra Social' ]"></app-table-usuarios>
+      </div>
+    </div>
+    <button class="btn btn-primary mt-3" routerLink="/register">Crear Nuevo</button>
+  </div>
+</div>
+
+<app-modal-custom [showModal]="showModal" >
+  <h4 class="fw-bold">¿Estas seguro?</h4>
+  <div class="d-flex gap-2">
+    <button class="btn btn-primary" (click)="confirmChange()">Confirmar</button>
+    <button class="btn btn-danger" (click)="showModal = false">Cancelar</button>
+  </div>
+</app-modal-custom>

@@ -1,0 +1,57 @@
+<div class="vh-100">
+  <app-spinner [showSpinner]="loading"></app-spinner>
+  <div class="container-fluid content h-100">
+    <a routerLink="/bienvenido"><i class="fa-solid fa-arrow-left position-absolute top-0 start-0 m-4 fs-3  color-tertiary"></i></a>
+
+    <form class="container" [formGroup]="formLog" (ngSubmit)="onSubmit()">
+      <div class="row justify-content-center mb-3">
+        <div class="col-12 text-center color-tertiary">
+          <h1>Iniciar Sesión</h1>
+        </div>
+      </div>
+
+      <div class="row justify-content-center" *ngIf="showAlert">
+        <div class="col-12 text-white">
+          <app-alert [text]="textError || 'Error, algo salio mal'" (hideAlertEvent)="showAlert= $event"></app-alert>
+        </div>
+      </div>
+
+      <div class="row justify-content-center gap-2">
+        <div class="col-10 p-0">
+          <app-form-input class="" controlName="email" label="Correo Electrónico" type="text">
+          </app-form-input>
+        </div>
+
+        <div class="col-10 p-0">
+          <app-form-input class="" controlName="password" label="Contraseña"
+            [type]="formLog.controls['showPassword'].value ? 'text': 'password'">
+          </app-form-input>
+        </div>
+
+        <div class="col-10 p-0 d-flex justify-content-between aling-items-center">
+          <div class="form-check form-switch">
+            <input formControlName="showPassword" class="form-check-input" type="checkbox" role="switch"
+              id="flexSwitchCheckChecked" checked>
+            <label class="form-check-label color-tertiary" for="flexSwitchCheckChecked">Mostrar Contraseña</label>
+          </div>
+
+          <button class="btn bg-color-primary" type="button" (click)="showUsersModal = true"><i class="fa-solid fa-users text-light"></i></button>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center align-items-center">
+          <p class="color-tertiary">¿No tenes cuenta?
+            <a routerLink="/register" (click)="this.formLog.reset()" class="color-primary"> Registrate</a>
+          </p>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center">
+          <button class="btn bg-color-primary text-light" expand="block" shape="round" type="submit">
+            Iniciar Sesion
+          </button>
+        </div>
+      </div>
+    </form>
+    <app-modal-users [showUsersModal]="showUsersModal" (hideModalEvent)="showUsersModal=$event"
+      (userSelectedEvent)="userSelected($event)"></app-modal-users>
+  </div>
+</div>

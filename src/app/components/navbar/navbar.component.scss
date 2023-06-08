@@ -1,0 +1,42 @@
+nav{
+  background-color: var(--color-tertiary);
+  height: 10vh;
+  min-height: 80px;
+}
+
+img{
+  width: 40px;
+  height: 40px;
+}
+
+a span{
+  font-size: 15px;
+}
+
+.btn-login, .btn-register{
+  padding: 4px 6px; 
+  font-size: 13px;
+}
+
+@media (width > 410px) {
+  .dropdown-toggle{
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-padding-x: 1rem;
+    --bs-btn-font-size: 1.25rem;
+    --bs-btn-border-radius: var(--bs-border-radius-lg);
+  }
+
+  img{
+    width: 60px;
+    height: 60px;
+  }
+
+  a span{
+    font-size: 20px;
+  }
+
+  .btn-login, .btn-register{
+    padding: 6px 12px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,6 @@
+<div *ngIf="showModal" class="modal position-fixed top-0 w-100 h-100 d-flex justify-content-center align-items-center {{class}}">
+  <div class="modal-content align-items-center justify-content-center position-relative">
+    <i *ngIf="closeBtn" class="fa-solid fa-xmark position-absolute top-0 end-0 m-3 fs-3" (click)="hideModalEvent.emit(false)"></i>
+    <ng-content></ng-content>    
+  </div>
+</div>

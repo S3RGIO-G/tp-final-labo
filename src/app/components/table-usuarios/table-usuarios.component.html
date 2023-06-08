@@ -1,0 +1,64 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th *ngFor="let item of headers">{{item}}</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <ng-container *ngFor="let user of pacientesList">
+      <tr>
+        <td>
+          <div class="user-info gap-3">
+            <div class="user-info__img">
+              <img src="{{user.images[0]}}" alt="User Img">
+            </div>
+            <div class="user-infor__basic text-start">
+              <h6 class="mb-0">{{user.name}} {{user.lastName}}</h6>
+              <p class="text-muted mb-0">{{user.email}}</p>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <span>{{user.dni}}</span>
+        </td>
+
+        <td>{{user.age}}</td>
+
+        <td class="obraSocial"><span>{{user.obraSocial}}</span></td>
+      </tr>
+    </ng-container>
+
+    <ng-container *ngFor="let user of especialistasList">
+      <tr>
+        <td>
+          <div class="user-info gap-3">
+            <div class="user-info__img">
+              <img src="{{user.images[0]}}" alt="User Img">
+            </div>
+            <div class="user-infor__basic text-start">
+              <h6 class="mb-0">{{user.name}} {{user.lastName}}</h6>
+              <p class="text-muted mb-0">{{user.email}}</p>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <span>{{user.dni}}</span>
+        </td>
+
+        <td>{{user.age}}</td>
+
+        <td><span>{{user.especialidad}}</span></td>
+        <td>
+          <button class="btn {{user.valid ? 'btn-danger' : 'btn-success'}}" (click)="changeValidityEvent.emit(user)">
+            {{user.valid ? 'Inhabilitar' : 'Habilitar'}}
+          </button>
+        </td>
+
+      </tr>
+    </ng-container>
+
+  </tbody>
+</table>

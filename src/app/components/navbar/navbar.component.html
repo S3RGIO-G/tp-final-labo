@@ -1,0 +1,35 @@
+<nav class="navbar position-static">
+  <div class="container-fluid">
+    <div class="d-flex  justify-content-center align-items-center gap-3">
+      <a class="navbar-brand d-flex justify-content-center align-items-center" routerLink="/bienvenido">
+        <img src="./../../../assets/icon.png" alt="Logo" class="d-inline-block align-text-top">
+        <span class="ms-2 text-white">Inicio</span>
+      </a>
+      <div class="h-100">
+        <a *ngIf="usuario?.type === 1" class="fs-5 text-decoration-none text-light" routerLink="/usuarios">Usuarios</a>
+      </div>
+    </div>
+
+    <div *ngIf="usuario" class="dropdown-center  ">
+      <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false ">
+        {{usuario.name}} {{usuario.lastName}}
+      </button>
+      <ul class="dropdown-menu w-100">
+        <li class="text-center">Tipo: <b>{{TypeUser[usuario.type]}}</b></li>
+        <li class="p-2">
+          <button class="btn text-light w-100 bg-danger" (click)="loguot()">Cerrar Sesión</button>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="!usuario">
+      <a routerLink="/login">
+        <button class="btn text-light btn-login">Iniciar Sesión</button>
+      </a>
+      <a routerLink="/register">
+        <button class="btn btn-primary ms-2 btn-register">Registrarme</button>
+      </a>
+    </div>
+
+  </div>
+</nav>

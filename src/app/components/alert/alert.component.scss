@@ -1,0 +1,27 @@
+.alert{
+  background-color: #d82d44bf;
+  position: relative;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+  
+  p{
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+  }
+  div{
+    position: absolute;
+    padding: 0px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    top: 3px;
+    right: 10px;
+
+    i{
+      cursor: pointer;
+    }
+  }
+}

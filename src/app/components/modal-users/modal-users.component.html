@@ -1,0 +1,12 @@
+<div *ngIf="showUsersModal" class="modal-background" (click)="backClick($event)">
+
+  <div class="modal-container">
+    <i class="fa-solid fa-xmark modal-close" (click)="hideModalEvent.emit(false)"></i>
+      <h1 class="modal-title">Elige Usuario</h1>
+    <div class="modal-content">
+      <button (click)="userSelected($event,'Sergio12345678')" class="btn btn-primary" >sergio@gmail.com</button>
+      <button (click)="userSelected($event,'Admin12345678')" class="btn btn-primary" >admin@gmail.com</button>
+      <button (click)="userSelected($event,'Empleado12345678')" class="btn btn-primary" >empleado@gmail.com</button>
+    </div>
+  </div>
+</div>
