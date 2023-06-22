@@ -3,6 +3,8 @@ export interface Historia{
   pacienteName: string, //Creo que no es necesario
   historial: [
     {
+      fecha: string,
+      especialista: string,
       altura: number,
       peso: number,
       temperatura: number,
@@ -11,7 +13,6 @@ export interface Historia{
         clave:string,
         valor:number,
       }
-
     }
   ]
 }

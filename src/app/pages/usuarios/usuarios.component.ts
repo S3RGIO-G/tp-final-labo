@@ -34,6 +34,7 @@ export class UsuariosComponent implements OnInit {
   pacientesList !: Paciente[];
   especialistasList !: Especialista[];
   especialidades !: Especialidad[];
+  users !: any[];
   
   constructor(private userService: UserService, private exporterService: ExporterService) {}
 
@@ -42,6 +43,7 @@ export class UsuariosComponent implements OnInit {
     this.userService.getUsers().subscribe(res=>{
       this.especialistasList = res.filter(u=> u.type === 2) as Especialista[];
       this.pacientesList = res.filter(u=> u.type === 3) as Paciente[];
+      this.users = res;
     })
   }
 
@@ -54,8 +56,34 @@ export class UsuariosComponent implements OnInit {
     this.showModal = false;
     this.userService.updateUser(this.especialista);
   }
-  testing(){
-    console.log('hola');
-    // this.exporterService.exportToExcel(this.pacientesList, 'pacientes');
+
+  exportUsers(){
+    const users : any = [];
+    this.users.forEach(u => {
+      
+      let user = {
+        nombre: '',
+        apellido : '',
+        email:'',
+        edad: 0,
+        dni: 0,
+        tipo: '',
+        especialidades: '',
+        obraSocial: ''
+      }
+
+      user.nombre = u.name;
+      user.apellido = u.lastName;
+      user.edad = u.age;
+      user.dni = u.dni;
+      user.email = u.email;
+      user.tipo = u.type === 1 ? 'Administrador' : u.type === 2 ? 'Especialista' : 'Paciente';
+
+      if(u.type === 3)user.obraSocial = u.obraSocial;
+      if(u.type === 2)user.especialidades = u.especialidad.join(', ');
+      users.push(user);
+    })
+
+    this.exporterService.exportToExcel(users, 'usuarios');
   }
 }

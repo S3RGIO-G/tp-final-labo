@@ -3,7 +3,7 @@
 
   <div class="text-center">
     <h2>Usuarios</h2>
-    <div class="table-container d-flex flex-column gap-4 p-3">
+    <div class="table-container d-flex flex-column p-3 gap-1">
       <div class="h-50 bg-color-primary rounded p-3">
         <div class="h-100 overflow-y-auto">
           <app-table-usuarios [especialistasList]="especialistasList"
@@ -20,7 +20,7 @@
       </div>
     </div>
     <button class="btn btn-primary mt-3" routerLink="/register">Crear Nuevo</button>
-    <button class="btn btn-primary mt-3" (click)="testing()">Test</button>
+    <button class="btn bg-color-tertiary text-light mt-3 ms-2" (click)="exportUsers()" [disabled]="!users">Exportar</button>
   </div>
 </div>
 <app-spinner [showSpinner]="loading"></app-spinner>
