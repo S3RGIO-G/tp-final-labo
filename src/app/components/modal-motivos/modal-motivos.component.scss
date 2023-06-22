@@ -1,0 +1,15 @@
+.modal{
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.417);
+}
+
+.modal-content{
+  background-color: aliceblue;
+  max-width: 350px;
+  border-radius: 25px;
+  padding: 40px;
+}
+
+i{
+  cursor: pointer;
+}

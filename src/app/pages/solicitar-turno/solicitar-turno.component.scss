@@ -1,0 +1,72 @@
+.main {
+  min-height: 90vh;
+
+  .container {
+    width: 90vw;
+    max-width: 800px;
+    b {
+      font-size: 12px;
+    }
+    .esp-container, .pac-container{
+      min-height: 130px;
+    }
+
+    .especialidad-container {
+      min-height: 75px;
+      .btn-esp {
+        width: 150px;
+        height: 75px;
+        min-width: 150px;
+        min-height: 75px;
+
+        .img-esp{
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+    .turnos-container{
+      min-height: 90px;
+      .btn-turno{
+        padding: 0;
+        min-width: 80px;
+        min-height: 80px;
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    
+  }
+}
+
+.img-user {
+  width: 80px;
+  height: 80px;
+}
+
+.btn-paciente, .btn-especialista{
+  width: 130px;
+  min-width: 130px;
+}
+
+.btn-paciente, .btn-especialista, .btn-esp, .btn-turno {
+  border-width: 6px;
+}
+
+::-webkit-scrollbar {
+  height: 14px;
+  margin-top: 10px;
+  border-radius: 50px;
+  background-color: rgb(215, 215, 215);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: rgb(60, 60, 255);
+}
+
+
+
+
+

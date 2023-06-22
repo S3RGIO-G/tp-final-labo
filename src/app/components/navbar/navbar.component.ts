@@ -25,6 +25,15 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.usuario = this.userService.getCurrentUser();
+    this.userEvent.emit(this.usuario);
+    this.userService.getCurrentUserObs().subscribe(res=>{
+      let user = res[0] as Administrador & Especialista & Paciente;
+      if(user && user.type === 2 && !user.valid ){
+        this.router.navigate(['/bienvenido']);
+      }
+
+      this.userEvent.emit(user);
+    })
   }
 
   loguot() {

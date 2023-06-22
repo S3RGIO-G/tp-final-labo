@@ -1,0 +1,45 @@
+<div *ngIf="showModal" class="modal position-fixed top-0 w-100 h-100 d-flex justify-content-center align-items-center">
+
+  <div class="modal-content align-items-center justify-content-center position-relative">
+
+    <ng-container *ngIf="!turno?.review">
+      <h2>Hacer Reseña</h2>
+      <div class="d-flex flex-column">
+        <form [formGroup]="form" class="d-flex gap-2">
+          <app-form-input controlName="comentario" label="Comentario" type="text"
+            class="{{comentario.errors?'is-invalid': ''}}"></app-form-input>
+          <div class="form-floating">
+            <select formControlName="puntuacion" id="selectPunt"
+              class="form-select {{puntuacion.errors?'is-invalid': ''}}">
+              <option value="{{1}}">1</option>
+              <option value="{{2}}">2</option>
+              <option value="{{3}}">3</option>
+              <option value="{{4}}">4</option>
+              <option value="{{5}}">5</option>
+            </select>
+            <label for="selectPunt">Puntaje</label>
+          </div>
+          <img src="../../../assets/star.png" class="img-normal">
+        </form>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+          <button class="btn btn-success" (click)="OnSubmit()">Aceptar</button>
+          <button class="btn btn-danger" (click)="cancel()">Cancelar</button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="turno?.review">
+      <i class="fas fa-xmark fs-2 position-absolute top-0 end-0 pt-3 pe-3" (click)="closeModalEvent.emit(false)"></i>
+      <h2>Reseña</h2>
+      <div class="d-flex flex-column">
+        <p>{{turno.review?.comentario}}</p>
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <b class="fs-1">{{turno.review?.puntuacion}}</b>
+          <img src="../../../assets/star.png" class="img-small">
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>

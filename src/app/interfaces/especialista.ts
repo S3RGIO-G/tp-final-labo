@@ -9,7 +9,8 @@ export interface Especialista{
   email: string;
   password:string;
   images: Array<string>;
-  especialidad: string;
+  especialidad: Array<string>;
   type: TypeUser;
   valid: boolean;
+  emailVerified: boolean;
 }

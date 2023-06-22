@@ -5,12 +5,31 @@
         <img src="./../../../assets/icon.png" alt="Logo" class="d-inline-block align-text-top">
         <span class="ms-2 text-white">Inicio</span>
       </a>
-      <div class="h-100">
-        <a *ngIf="usuario?.type === 1" class="fs-5 text-decoration-none text-light" routerLink="/usuarios">Usuarios</a>
+      <div *ngIf="usuario?.type === 1"  class="h-100">
+        <a class="fs-5 text-decoration-none text-light" routerLink="/usuarios">Usuarios</a>
+      </div>
+      <div *ngIf="usuario?.type !== null">
+        <a class="fs-5 text-decoration-none text-light" routerLink="/perfil">Perfil</a>
+      </div>
+      <div *ngIf="usuario?.type !== null" class="dropdown-center">
+        <span class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false ">
+          Turnos
+        </span>
+        <ul class="dropdown-menu">
+          <li *ngIf="usuario?.type === 1" class="text-center dropdown-item">
+            <a class="drop-item" routerLink="/turnos">Gestionar turnos</a>
+          </li>
+          <li *ngIf="usuario?.type !== 1" class="text-center dropdown-item">
+            <a class="drop-item" routerLink="/misturnos">Mis Turnos</a>
+          </li>
+          <li *ngIf="usuario?.type !== 2" class="text-center dropdown-item">
+            <a class="drop-item" routerLink="/solicitarturno">Solicitar Turno</a>
+          </li>
+        </ul>
       </div>
     </div>
 
-    <div *ngIf="usuario" class="dropdown-center  ">
+    <div *ngIf="usuario" class="dropdown-center me-3">
       <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false ">
         {{usuario.name}} {{usuario.lastName}}
       </button>

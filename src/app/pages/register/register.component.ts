@@ -20,6 +20,7 @@ import { ModalCustomComponent } from 'src/app/components/modal-custom/modal-cust
 import { ImageService } from 'src/app/services/image.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '@angular/fire/auth';
+import { Especialidad } from 'src/app/interfaces/especialidad';
 
 @Component({
   selector: 'app-register',
@@ -45,17 +46,17 @@ export class RegisterComponent implements OnInit {
   formReg: FormGroup;
   formEsp: FormGroup;
   user!: Administrador | Especialista | Paciente | null;
-  especialidades!: any[];
-  imgUploaded!: [];
+  especialidades!: Array<Especialidad>;
+  imgUploaded !: File[];
 
   constructor(
     private userService: UserService,
     private router: Router,
     private imgService: ImageService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.formReg = new FormGroup({
-      type: new FormControl(''),
+      type: new FormControl(null),
       name: new FormControl('', [FormValidator.onlyLetters]),
       lastName: new FormControl('', [FormValidator.onlyLetters]),
       dni: new FormControl(null, [
@@ -84,6 +85,9 @@ export class RegisterComponent implements OnInit {
   }
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
+    this.userService.getCurrentUserObs().subscribe(res=>{
+      this.user = res[0];
+    })
     this.userService.getSpecialties().subscribe((res) => {
       this.especialidades = res;
     });
@@ -125,7 +129,7 @@ export class RegisterComponent implements OnInit {
   }
 
   postAddToFirestore(user: User) {
-    if (this.type.value === '2' || this.type.value === '3') {
+    if (this.type.value === 2 || this.type.value === 3) {
       this.toastr.info(
         'Le enviamos un correo para su verificacion',
         'Verificar Email'
@@ -139,14 +143,26 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/bienvenido']);
   }
 
-  selectTypeUser(event: any) {
-    switch (event.target.value) {
-      case '2':
+  selectTypeUser(event: any, type : number) {
+    this.images.reset();
+    const btn = (event.target.type === 'button') ? event.target : event.target.parentElement;
+    const buttons = document.querySelectorAll('.btn-user');
+    buttons.forEach(btn =>{
+      btn.classList.remove('btn-selected');
+    })
+    btn.classList.add('btn-selected');
+    switch (type) {
+      case 1:
+        this.type.setValue(1);
+        break;
+      case 2:
+        this.type.setValue(2);
         this.formReg.addControl('especialidad', new FormControl());
         if (this.formReg.controls['obraSocial'])
           this.formReg.removeControl('obraSocial');
         break;
-      case '3':
+      case 3:
+        this.type.setValue(3);
         this.formReg.addControl(
           'obraSocial',
           new FormControl('', FormValidator.obraSocial)
@@ -158,9 +174,9 @@ export class RegisterComponent implements OnInit {
   }
 
   selectImages(event: any) {
-    console.log(event.target.files);
     this.imgUploaded = event.target.files;
-    if (this.imgUploaded.length > 2) {
+    console.log(this.imgUploaded);
+    if (this.imgUploaded.length !== 2 && this.type.value === 2 || this.imgUploaded.length !== 1 && this.type.value !== 2 ) {
       this.images.setErrors({ images: true });
       return;
     }

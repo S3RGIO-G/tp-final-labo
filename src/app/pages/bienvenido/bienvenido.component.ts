@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule} from '@angular/router';
 import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
@@ -14,8 +14,11 @@ import { Paciente } from 'src/app/interfaces/paciente';
   standalone: true,
   imports: [CommonModule, RouterModule, NavbarComponent, SpinnerComponent],
 })
-export class BienvenidoComponent {
+export class BienvenidoComponent implements OnInit{
   user !: Administrador | Especialista | Paciente | null;
   loading : boolean = false;
+  
+  ngOnInit(): void {
 
+  }
 }

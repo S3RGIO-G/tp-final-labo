@@ -1,0 +1,21 @@
+.container{
+  width: 80vw;
+  max-width: 850px;
+  height: 50vh;
+  max-height: 400px;
+  
+}
+.mat-mdc-radio-button.mat-accent{
+  --mdc-radio-selected-focus-icon-color: #4079ff;
+  --mdc-radio-selected-hover-icon-color: #4079ff;
+  --mdc-radio-selected-icon-color: #4079ff;
+  --mdc-radio-selected-pressed-icon-color: #4079ff;
+  --mat-mdc-radio-checked-ripple-color: #4079ff;
+}
+.table-container{
+  height: 90%;
+}
+
+.btn-container{
+  height: 10%;
+}

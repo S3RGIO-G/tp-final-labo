@@ -1,0 +1,27 @@
+<div *ngIf="showModal" class="modal position-fixed top-0 w-100 h-100 d-flex justify-content-center align-items-center">
+
+  <div class="modal-content align-items-center justify-content-center position-relative">
+
+    <ng-container *ngIf="!turno?.motivo">
+      <h2>Motivos</h2>
+      <div class="d-flex flex-column">
+        <form [formGroup]="form" class="d-flex gap-2">
+          <app-form-input controlName="motivo" label="Motivo" type="text"
+            class="{{motivo.errors?'is-invalid': ''}}"></app-form-input>
+        </form>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+          <button class="btn btn-success" (click)="OnSubmit()">Aceptar</button>
+          <button class="btn btn-danger" (click)="cancel()">Cancelar</button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="turno?.motivo">
+      <i class="fas fa-xmark fs-2 position-absolute top-0 end-0 pt-3 pe-3" (click)="closeModalEvent.emit(false)"></i>
+      <h2>Motivos</h2>
+      <p>{{turno.motivo}}</p>
+    </ng-container>
+
+  </div>
+
+</div>

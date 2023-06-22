@@ -1,0 +1,86 @@
+<app-navbar (loadingEvent)="loading = $event" (userEvent)="user = $event"></app-navbar>
+
+<div class="main d-flex justify-content-center align-items-start pt-4 bg-color-light">
+  <div class="container bg-color-primary rounded p-3 top-0 text-light d-flex flex-column gap-3">
+    <div *ngIf="user?.type === 1">
+      <h4>Pacientes</h4>
+      <div class="pac-container d-flex gap-3 overflow-x-auto position-relative pb-2">
+        <div *ngIf="loadingUsers"
+          class="position-absolute top-0 h-100 w-100 d-flex justify-content-center align-items-center">
+          <div class="spinner-border text-primary " role="status">
+          </div>
+        </div>
+
+        <button type="button" *ngFor="let pac of pacientes"
+          class="btn btn-option btn-paciente d-flex flex-column text-center align-items-center"
+          (click)="selectPaciente(pac, $event, '.btn-paciente')">
+          <img src="{{pac.images[0]}}" class="img-user">
+          <b>{{pac.name}} {{pac.lastName}}</b>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="user?.type === 3 || paciente.value !== null">
+      <h4>Especialistas</h4>
+      <div class="esp-container d-flex gap-3 overflow-x-auto position-relative pb-2">
+        <div *ngIf="loadingUsers"
+          class="spinner-container position-absolute top-0 h-100 w-100 d-flex justify-content-center align-items-center">
+          <div class="spinner-border text-primary " role="status">
+          </div>
+        </div>
+
+        <button type="button" *ngFor="let esp of especialistas"
+          class="btn btn-option btn-especialista d-flex flex-column text-center align-items-center"
+          (click)="selectEspecialista(esp, $event, '.btn-especialista')">
+          <img src="{{esp.images[0]}}" class="img-user">
+          <b>{{esp.name}} {{esp.lastName}}</b>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="especialista.value !== null">
+      <h4>Especialidades</h4>
+      <div class="especialidad-container d-flex gap-3 overflow-x-auto pb-2">
+        <button type="button" *ngFor="let especialidad of especialidadesDisp"
+          class="btn btn-option btn-esp d-flex flex-column text-center align-items-center text-capitalize position-relative"
+          (click)="selectEspecialidad(especialidad, $event, '.btn-esp')">
+          <b class="position-absolute top-0">{{especialidad.name}}</b>
+          <img src="{{especialidad.url}}" class="img-esp">
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="especialidad.value !== null">
+      <h4>Turnos</h4>
+      <div class="turnos-container d-flex gap-3 overflow-x-auto align-items-center position-relative pb-2 {{turnos?.length === 0 ? 'justify-content-center': ' '}}">
+
+        <div *ngIf="loadingTurnos"
+          class="position-absolute top-0 h-100 w-100 d-flex justify-content-center align-items-center bg-color-primary">
+          <div class="spinner-border text-primary " role="status">
+          </div>
+        </div>
+
+        <button type="button" *ngFor="let turno of turnos"
+          class="btn btn-option btn-turno d-flex text-center align-items-center text-capitalize"
+          (click)="selectTurno(turno, $event, '.btn-turno')">
+          <b class="h-100 d-flex align-items-center">{{turno.fecha | dateTurno}}</b>
+        </button>
+        <b *ngIf="turnos?.length === 0" class="fs-5 justify-content-center">No hay turnos disponibles</b>
+      </div>
+    </div>
+
+    <div *ngIf="turnoSelected" class="d-flex align-items-center justify-content-center">
+      <button class="btn btn-option btn-primary" (click)="showModal = true">Crear Turno</button>
+    </div>
+  </div>
+</div>
+
+<app-modal-custom [showModal]="showModal">
+  <h4>¿Estas seguro?</h4>
+  <div class="d-flex gap-3">
+    <button class="btn btn-success" (click)="onSubmit()">Aceptar</button>
+    <button class="btn btn-danger" (click)="showModal = false">Cancelar</button>
+  </div>
+</app-modal-custom>
+
+<app-spinner [showSpinner]="loading"></app-spinner>

@@ -11,4 +11,5 @@ export interface Paciente{
   images: Array<string>;
   obraSocial: string;
   type: TypeUser;
+  emailVerified: boolean;
 }

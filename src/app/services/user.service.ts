@@ -20,8 +20,9 @@ import {
   updateDoc,
   query,
   where,
+  Query,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Administrador } from '../interfaces/administrador';
 import { Paciente } from '../interfaces/paciente';
 import { Especialista } from '../interfaces/especialista';
@@ -31,18 +32,18 @@ import { Especialista } from '../interfaces/especialista';
 })
 export class UserService {
   usersRef = collection(this.firestore, 'users');
-  especialistasRef = collection(this.firestore, 'especialistas');
-  adminsRef = collection(this.firestore, 'admins');
   specialtiesRef = collection(this.firestore, 'especialidades');
   currentAuth = this.auth;
 
+  subscription!: Subscription;
   constructor(private auth: Auth, private firestore: Firestore) {}
 
-  getCurrentUser() : Administrador | Paciente | Especialista | null{
+  getCurrentUser(): Administrador | Paciente | Especialista | null {
     let user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
-  setCurrentUser(user: Administrador | Paciente | Especialista){
+
+  setCurrentUser(user: Administrador | Paciente | Especialista) {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
@@ -65,7 +66,7 @@ export class UserService {
   }
 
   //** FIRESTORE **
-  addDocAuto(data: any, ref: CollectionReference<DocumentData>) {
+  private addDocAuto(data: any, ref: CollectionReference<DocumentData>) {
     return addDoc(ref, data);
   }
   private addDocById(
@@ -91,6 +92,7 @@ export class UserService {
     id: string
   ) {
     const user = {
+      id,
       type: parseInt(type),
       name,
       lastName,
@@ -101,10 +103,16 @@ export class UserService {
       images: imgURLs,
     };
     switch (type) {
-      case '2':
-        return this.addDocById({ ...user, especialidad, valid: false }, id);
-      case '3':
-        return this.addDocById({ ...user, obraSocial }, id);
+      case 2:
+        return this.addDocById(
+          { ...user, especialidad, valid: false, emailVerified: false },
+          id
+        );
+      case 3:
+        return this.addDocById(
+          { ...user, obraSocial, emailVerified: false },
+          id
+        );
       default:
         return this.addDocById(user, id);
     }
@@ -115,37 +123,54 @@ export class UserService {
   }
 
   getDocsObserver(
-    ref: CollectionReference<DocumentData>
-  ): Observable<Administrador[] | Paciente[] | Especialista[]> {
-    return collectionData(ref, { idField: 'id' }) as Observable<
+    ref: CollectionReference<DocumentData> | Query<DocumentData>
+  ) {
+    return collectionData(ref, { idField: 'id' });
+  }
+
+  getUsers(): Observable<Administrador[] | Paciente[] | Especialista[]> {
+    return this.getDocsObserver(this.usersRef) as Observable<
       Administrador[] | Paciente[] | Especialista[]
     >;
   }
 
-  getUsers() {
-    return this.getDocsObserver(this.usersRef);
+  getCurrentUserObs(){
+    const user = this.getCurrentUser();
+    return this.getUserByIdObserver(user?.id || ' ');
+  }
+
+  getUserByIdObserver(id: string) {
+    const q = query(this.usersRef, where('__name__', '==', id));
+    return this.getDocsObserver(q) as Observable<
+      Administrador[] | Paciente[] | Especialista[]
+    >;
   }
 
   getUserById(id: string) {
     return getDoc(doc(this.usersRef, id));
   }
-  getUsersDistinctType(type: number) : Observable<Paciente[] | Especialista[]> {
-    const q = query(this.usersRef, where('type', '!=', type));    
-    return collectionData(q, { idField: 'id' }) as Observable<Paciente[] | Especialista[]>;
+  
+  getUsersDistinctType(type: number): Observable<Paciente[] | Especialista[]> {
+    const q = query(this.usersRef, where('type', '!=', type));
+    return collectionData(q, { idField: 'id' }) as Observable<
+      Paciente[] | Especialista[]
+    >;
   }
 
-  getUsersByType(type: number) : Observable<Paciente[] | Especialista[]> {
-    const q = query(this.usersRef, where('type', '==', type));    
-    return collectionData(q, { idField: 'id' }) as Observable<Paciente[] | Especialista[]>;
+  getUsersByType(type: number): Observable<Paciente[] | Especialista[]> {
+    const q = query(this.usersRef, where('type', '==', type));
+    return collectionData(q, { idField: 'id' }) as Observable<
+      Paciente[] | Especialista[]
+    >;
+  }
+
+  updateUser(user: Administrador | Paciente | Especialista) {
+    return updateDoc(doc(this.usersRef, user.id), { ...user });
   }
 
   getSpecialties(): Observable<any[]> {
     return collectionData(this.specialtiesRef, { idField: 'id' }) as Observable<
       any[]
     >;
-  }
-
-  updateUser(user : Administrador | Paciente | Especialista){
-    return updateDoc(doc(this.usersRef, user.id), {...user});
   }
 }

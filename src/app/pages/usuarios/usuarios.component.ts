@@ -9,6 +9,8 @@ import { TableUsuariosComponent } from 'src/app/components/table-usuarios/table-
 import { UserService } from 'src/app/services/user.service';
 import { RouterModule } from '@angular/router';
 import { ModalCustomComponent } from 'src/app/components/modal-custom/modal-custom.component';
+import { Especialidad } from 'src/app/interfaces/especialidad';
+import { ExporterService } from 'src/app/services/exporter.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -31,14 +33,15 @@ export class UsuariosComponent implements OnInit {
   especialista !: Especialista;
   pacientesList !: Paciente[];
   especialistasList !: Especialista[];
-  constructor(private userService: UserService) {}
+  especialidades !: Especialidad[];
+  
+  constructor(private userService: UserService, private exporterService: ExporterService) {}
 
   ngOnInit(): void {
-    this.userService.getUsersByType(2).subscribe(res =>{
-      this.especialistasList = res as Especialista[];
-    })
-    this.userService.getUsersByType(3).subscribe(res =>{
-      this.pacientesList = res as Paciente[];
+
+    this.userService.getUsers().subscribe(res=>{
+      this.especialistasList = res.filter(u=> u.type === 2) as Especialista[];
+      this.pacientesList = res.filter(u=> u.type === 3) as Paciente[];
     })
   }
 
@@ -50,5 +53,9 @@ export class UsuariosComponent implements OnInit {
   confirmChange(){
     this.showModal = false;
     this.userService.updateUser(this.especialista);
+  }
+  testing(){
+    console.log('hola');
+    // this.exporterService.exportToExcel(this.pacientesList, 'pacientes');
   }
 }

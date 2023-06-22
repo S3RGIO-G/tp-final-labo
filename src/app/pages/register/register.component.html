@@ -1,7 +1,8 @@
-<div class="container-fluid content h-100 px-1 py-3">
-
-  <a routerLink="/bienvenido"><i
-      class="fa-solid fa-arrow-left position-absolute top-0 start-0 m-4 fs-3 color-tertiary"></i></a>
+<div class="container-fluid content h-100 px-1 py-3 bg-color-light">
+  <a routerLink="/bienvenido">
+    <i class="fa-solid fa-arrow-left position-absolute top-0 start-0 m-4 fs-3 color-tertiary">
+    </i>
+  </a>
 
   <form class="container" [formGroup]="formReg" (ngSubmit)="onSubmit()">
     <div class="row justify-content-center mb-2">
@@ -9,26 +10,30 @@
         <h1>Registrarme</h1>
       </div>
     </div>
-
     <div class="row justify-content-center" *ngIf="showAlert">
       <div class="col-12 text-white">
         <app-alert [text]="textError || 'Error, algo salio mal'" (hideAlertEvent)="showAlert = $event"></app-alert>
       </div>
     </div>
-
-    <!-- //TODO: INPUT TIPO -->
+  
+    <!-- //TODO: TIPO -->
     <div class="row justify-content-center">
-      <div class="col-10 p-0 form-floating">
-        <select formControlName="type" class="form-select mb-2 {{type.errors ? 'is-invalid': ''}}" id="selectUser"
-          (change)="selectTypeUser($event)">
-          <option *ngIf="user?.type === 1" [value]="1">Administrador</option>
-          <option [value]="2">Especialista</option>
-          <option [value]="3">Paciente</option>
-        </select>
-        <label for="selectUser">Tipo Usuario</label>
+      <div  class="col-10 p-0 mb-2">
+        <div class=" d-flex justify-content-center gap-4 ">
+          <button type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event,3)">
+            <img src="../../../assets/users/pacient.png " class="img-user">
+          </button>
+          <button type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event,2)">
+            <img src="../../../assets/users/doctor.png" class="img-user">
+          </button>
+          <button *ngIf="user?.type === 1" type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event, 1)">
+            <img src="../../../assets/users/admin.png" class="img-user">
+          </button>
+        </div>
       </div>
 
-      <!-- //TODO: INPUT NOMBRE -->
+      <ng-container *ngIf="type?.value !== null">
+        <!-- //TODO: INPUT NOMBRE -->
       <div class="col-10 col-sm-5 p-0">
         <app-form-input class="{{name.errors ? 'is-invalid': ''}}" controlName="name" label="Nombre" type="text">
           <small class="invalid-feedback fw-bold">Ingrese solo letras</small>
@@ -61,15 +66,15 @@
       <div class="col-5 col-sm-4 p-0 ps-2">
         <div class="form-floating mb-2">
           <input type="file" formControlName="images" id="img-input"
-            class="form-control {{images.errors ? 'is-invalid': ''}}" [multiple]="type.value === '2' ? true : false"
+            class="form-control {{images.errors ? 'is-invalid': ''}}" [multiple]="type.value === 2 ? true : false"
             (change)="selectImages($event)">
-          <label for="img-input">{{type.value === '2' ? 'Imagenes' : 'Imagen'}}</label>
-          <small *ngIf="type.value === '2'" class="invalid-feedback fw-bold">Ingresa 2 imagenes</small>
+          <label for="img-input">{{type.value === 2 ? 'Imagenes' : 'Imagen'}}</label>
+          <small *ngIf="type.value === 2" class="invalid-feedback fw-bold">Ingresa 2 imagenes</small>
         </div>
       </div>
 
       <!-- //TODO: INPUT OBRA SOCIAL -->
-      <div *ngIf="type.value === '3'" class="col-10 p-0">
+      <div *ngIf="type.value === 3" class="col-10 p-0">
         <app-form-input class="{{obraSocial.errors ? 'is-invalid': ''}}" controlName="obraSocial"
           label="Nro de Obra Social" type="text">
           <small class="invalid-feedback fw-bold">Ingrese un formato valido: 1-xxxx-x</small>
@@ -77,20 +82,20 @@
       </div>
 
       <!-- //TODO: INPUT ESPECIALIDAD -->
-      <ng-container *ngIf="type.value === '2'">
+      <ng-container *ngIf="type.value === 2">
         <div class="col-6 col-sm-8 p-0 ">
-          <div class="form-floating">
+          <div class="">
+            <label for="selectProfession">Especialidad</label>
             <select formControlName="especialidad"
-              class="form-select mb-2 text-capitalize {{especialidad.errors ? 'is-invalid': ''}}" id="selectProfession">
+              class="form-select form-control mb-2 text-capitalize {{especialidad.errors ? 'is-invalid': ''}}" id="selectProfession" multiple>
               <option *ngFor="let item of especialidades" [value]="item.name">
                 {{item.name}}
               </option>
             </select>
-            <label for="selectProfession">Especialidad</label>
           </div>
         </div>
-        <div class="col-4 col-sm-2 p-0 ps-2 pb-3">
-          <button class="btn bg-color-tertiary w-100 h-100" type="button" (click)="showModal = true">
+        <div class="col-4 col-sm-2 p-0 ps-2 pb-2 d-flex align-items-center justify-content-center">
+          <button class="btn bg-color-tertiary w-100 h-100 text-light" type="button" (click)="showModal = true">
             Agregar
           </button>
         </div>
@@ -131,6 +136,7 @@
           Crear cuenta
         </button>
       </div>
+      </ng-container>
     </div>
   </form>
 </div>

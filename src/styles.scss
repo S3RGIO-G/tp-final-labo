@@ -1,26 +1,93 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$tp-final-labo-primary: mat.define-palette(mat.$indigo-palette);
+$tp-final-labo-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$tp-final-labo-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$tp-final-labo-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $tp-final-labo-primary,
+      accent: $tp-final-labo-accent,
+      warn: $tp-final-labo-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($tp-final-labo-theme);
 
 * {
   --color-primary: #444874;
-  --color-secondary: #69ccfd;
-  --color-tertiary: #21d9bd;
+  --color-secondary: #5188FF;
+  --color-tertiary: #0B1136;
+  --color-light: #ececec;
 }
 
-.color-primary{
+.color-primary {
   color: var(--color-primary) !important;
 }
-.color-secondary{
+.color-secondary {
   color: var(--color-secondary) !important;
 }
-.color-tertiary{
+.color-tertiary {
   color: var(--color-tertiary) !important;
 }
+.color-light {
+  color: var(--color-light) !important;
+}
 
-.bg-color-primary{
-background-color: var(--color-primary) !important;
+.bg-color-primary {
+  background-color: var(--color-primary) !important;
 }
-.bg-color-secondary{
-background-color: var(--color-secondary) !important;
+.bg-color-secondary {
+  background-color: var(--color-secondary) !important;
 }
-.bg-color-tertiary{
-background-color: var(--color-tertiary) !important;
+.bg-color-tertiary {
+  background-color: var(--color-tertiary) !important;
+}
+.bg-color-light {
+  background-color: var(--color-light) !important;
+}
+
+.btn-option, .btn-option:hover{
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.btn-invalid{
+  background-color: red;
+  border-color: red;
+}
+
+.btn-selected, .btn-selected:hover{
+  border-color: var(--color-tertiary);
+  border-style: groove;
+}
+
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

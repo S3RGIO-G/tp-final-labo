@@ -1,0 +1,45 @@
+<app-navbar (loadingEvent)="loading = $event" (userEvent)="user = $event"></app-navbar>
+<div class="main d-flex flex-column align-items-center text-light bg-color-light py-5 gap-4">
+  <div class="row profile-container bg-color-primary  rounded d-flex p-4 gap-4">
+    <div id="carouselExample" class="carousel slide d-flex justify-content-center col-12 col-md-5 col-lg-4">
+      <div class="carousel-inner">
+        <ng-container *ngFor="let img of user?.images; let i = index">
+          <div class="carousel-item {{!i ? 'active' : ''}}">
+            <img src="{{img}}" class="img-user">
+          </div>
+        </ng-container>
+      </div>
+      <button *ngIf="user?.images.length > 1" class="carousel-control-prev" type="button"
+        data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button *ngIf="user?.images.length > 1" class="carousel-control-next" type="button"
+        data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="h-100 col-12 col-md-4">
+      <h2>{{user?.name}} {{user?.lastName}}</h2>
+      <div class="d-flex align-items-center">
+        <ul>
+          <li><b>Email: </b> {{user?.email}}</li>
+          <li><b>Tipo: </b> {{TypeUser[user?.type]}}</li>
+          <li><b>Edad: </b> {{user?.age}}</li>
+          <li><b>DNI: </b> {{user?.dni}}</li>
+          <li *ngIf="user?.type === 2"><b>Especialidad: </b> {{user?.especialidad}}</li>
+          <li *ngIf="user?.type === 3"><b>Obra Social: </b> {{user?.ObraSocial}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="!showHorarios && user?.type === 2" class="btn btn-lg bg-color-secondary text-light" (click)="showHorarios = true">
+    Mis horarios
+  </button>
+  <app-horarios *ngIf="showHorarios" [showHorarios]="showHorarios" [user]="user"
+    (closeHorariosEvent)="showHorarios = $event" (loadingEvent)="loading = $event">
+  </app-horarios>
+
+</div>
+<app-spinner [showSpinner]="loading"></app-spinner>

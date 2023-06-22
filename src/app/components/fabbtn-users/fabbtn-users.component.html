@@ -1,0 +1,11 @@
+<div class="fabs">
+  <div class="action bg-color-primary" (click)="toggleBtn(null)">
+    <i class="fas {{open? 'fa-times' : 'fa-plus'}}"></i>
+  </div>
+
+  <div class="btns {{open? 'open' : ''}}">
+    <div *ngFor="let item of users" class="btn bg-color-primary d-flex align-items-center justify-content-center" (click)="toggleBtn(item)">
+      <img src="{{item.img}}" alt="">
+    </div>
+  </div>
+</div>

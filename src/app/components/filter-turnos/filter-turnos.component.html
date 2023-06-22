@@ -1,0 +1,41 @@
+<form [formGroup]="form" class="row d-flex gap-3 gap-sm-0">
+
+  <div class="col-12 col-sm-4">
+    <div class="form-floating">
+      <select formControlName="esp" id="selectEsp" class="form-select text-capitalize">
+        <option value="{{null}}">ninguno</option>
+        <option *ngFor="let esp of especialidades" value="{{esp.name}}">{{esp.name}}</option>
+      </select>
+      <label for="selectEsp">Especialidad</label>
+    </div>
+  </div>
+
+  <div *ngIf="user?.type === 2" class="col-12 col-sm-4">
+    <div class="form-floating">
+      <select formControlName="paciente" id="selectEsp" class="form-select text-capitalize">
+        <option value="{{null}}">ninguno</option>
+        <ng-container *ngFor="let user of users">
+          <option *ngIf="user.type === 3" value="{{user.id}}">{{user.name}} {{user.lastName}}</option>
+        </ng-container>
+      </select>
+      <label for="selectEsp">Paciente</label>
+    </div>
+  </div>
+
+  <div *ngIf="user?.type !== 2" class="col-12 col-sm-4">
+    <div class="form-floating">
+      <select formControlName="especialista" id="selectEsp" class="form-select text-capitalize">
+        <option value="{{null}}">ninguno</option>
+        <ng-container *ngFor="let user of users">
+          <option *ngIf="user.type === 2" value="{{user.id}}">{{user.name}} {{user.lastName}}</option>
+        </ng-container>
+      </select>
+      <label for="selectEsp">Especialista</label>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-4">
+    <button type="submit" class="btn btn-primary w-100 h-100" (click)="filter()" [disabled]="!turnos ? true : false">Filtrar</button>
+  </div>
+
+</form>

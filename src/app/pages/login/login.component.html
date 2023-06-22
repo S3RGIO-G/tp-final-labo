@@ -1,7 +1,8 @@
-<div class="vh-100">
+<div class="vh-100 bg-color-light">
   <app-spinner [showSpinner]="loading"></app-spinner>
   <div class="container-fluid content h-100">
-    <a routerLink="/bienvenido"><i class="fa-solid fa-arrow-left position-absolute top-0 start-0 m-4 fs-3  color-tertiary"></i></a>
+    <a routerLink="/bienvenido"><i
+        class="fa-solid fa-arrow-left position-absolute top-0 start-0 m-4 fs-3  color-tertiary"></i></a>
 
     <form class="container" [formGroup]="formLog" (ngSubmit)="onSubmit()">
       <div class="row justify-content-center mb-3">
@@ -34,8 +35,6 @@
               id="flexSwitchCheckChecked" checked>
             <label class="form-check-label color-tertiary" for="flexSwitchCheckChecked">Mostrar Contraseña</label>
           </div>
-
-          <button class="btn bg-color-primary" type="button" (click)="showUsersModal = true"><i class="fa-solid fa-users text-light"></i></button>
         </div>
 
         <div class="col-12 d-flex justify-content-center align-items-center">
@@ -44,6 +43,11 @@
           </p>
         </div>
 
+        <div class="col-12 d-flex justify-content-center align-items-center">
+          <ngx-recaptcha2 [siteKey]="key" formControlName="captcha"></ngx-recaptcha2>
+        </div>
+
+
         <div class="col-12 d-flex justify-content-center">
           <button class="btn bg-color-primary text-light" expand="block" shape="round" type="submit">
             Iniciar Sesion
@@ -51,7 +55,7 @@
         </div>
       </div>
     </form>
-    <app-modal-users [showUsersModal]="showUsersModal" (hideModalEvent)="showUsersModal=$event"
-      (userSelectedEvent)="userSelected($event)"></app-modal-users>
+
+    <app-fabbtn-users (SelectUserEvent)="userSelected($event)"></app-fabbtn-users>
   </div>
 </div>

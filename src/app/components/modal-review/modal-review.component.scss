@@ -1,0 +1,27 @@
+.modal{
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.417);
+}
+
+.modal-content{
+  background-color: aliceblue;
+  max-width: 450px;
+  border-radius: 25px;
+  padding: 40px;
+}
+
+select{
+  min-width: 120px;
+}
+
+i{
+  cursor: pointer;
+}
+.img-normal{
+  width: 50px;
+  height: 50px;
+}
+.img-small{
+  width: 35px;
+  height: 35px;
+}

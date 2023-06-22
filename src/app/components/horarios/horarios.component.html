@@ -1,0 +1,41 @@
+<div class="container bg-color-primary rounded p-4 d-flex flex-column gap-4">
+  <div class="table-container overflow-y-auto">
+    <table class="table text-center text-light">
+      <thead>
+        <tr>
+          <th>Especialidad</th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miercoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let esp of horario?.especialidades; let iesp = index" class="text-capitalize">
+          <td>{{esp.name}}</td>
+          <td *ngFor="let item of esp.days; let iday = index">
+            <mat-radio-button type="radio" name="{{item.day}}" value="{{item.day}}" [checked]="item.valid"
+              (click)="changeRadio(iesp, iday, !item.valid)">
+            </mat-radio-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="btn-container d-flex justify-content-end gap-3">
+    <button class="btn btn-success" (click)="showTurnos = true" [disabled]="horario ? false : true">Crear Turnos</button>
+    <button class="btn btn-primary" (click)="showModal = true" [disabled]="horario ? false : true">Actualizar</button>
+    <button class="btn btn-danger" (click)="closeHorariosEvent.emit(false)">Cancelar</button>
+  </div>
+</div>
+
+<app-modal-custom [showModal]="showModal">
+  <h2>¿Seguro?</h2>
+  <div class="d-flex gap-4 mt-3">
+    <button class="btn btn-success" (click)="updateHorarios()">Aceptar</button>
+    <button class="btn btn-danger" (click)="showModal=false">Cancelar</button>
+  </div>
+</app-modal-custom>
+
+<app-modal-turnos [showModal]="showTurnos" [horario]="horarioOld" (hideModalEvent)="showTurnos=$event" [user]="user" (loadingEvent)="loadingEvent.emit($event)"></app-modal-turnos>

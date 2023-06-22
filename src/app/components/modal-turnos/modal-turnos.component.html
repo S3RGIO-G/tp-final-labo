@@ -1,0 +1,42 @@
+<div *ngIf="showModal"
+  class="modal position-fixed top-0 w-100 h-100 d-flex justify-content-center align-items-center">
+  <div class="modal-content align-items-center justify-content-center position-relative">
+    <h2 class="text-black">Crear Turnos</h2>
+    <div class="d-flex flex-column">
+      <form [formGroup]="formTurno" class="d-flex flex-column gap-2 ">
+        <div class="form-floating">
+          <select formControlName="especialidad" class="form-select text-capitalize {{especialidad.errors ? 'is-invalid' : ''}}" id="selectEsp" (change)="resetFields()">
+            <option *ngFor="let esp of horario?.especialidades" value="{{esp.name}}">{{esp.name}}</option>
+          </select>
+          <label for="selectEsp">Especialidad</label>
+        </div>
+
+        <div class="form-floating">
+          <select formControlName="dia" class="form-select {{dia.errors ? 'is-invalid' : ''}}" id="selectDay" (change)="calculateDisp()" >
+            <option *ngIf="dia.value === null" value="{{null}}"></option>
+            <ng-container *ngFor="let esp of horario?.especialidades">
+              <ng-container *ngIf="esp.name === especialidad.value">
+                <ng-container *ngFor="let day of esp.days">
+                  <option *ngIf="day.valid" value="{{day.day}}">{{day.day | translateDay}}</option>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </select>
+          <label for="selectDay">Dia</label>
+        </div>
+
+        <div class="form-floating">
+          <select formControlName="disponible" class="form-select {{disponible.errors ? 'is-invalid' : ''}}" id="selectDisp">
+            <option *ngFor="let day of options" value="{{day}}">{{day}}</option>
+          </select>
+          <label for="selectDisp">Disponible</label>
+        </div>
+
+      </form>
+      <div class="d-flex gap-3 mt-3">
+        <button class="btn btn-success" (click)="OnSubmit()">Aceptar</button>
+        <button class="btn btn-danger" (click)="cancel()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AlertComponent } from 'src/app/components/alert/alert.component';
 import { FormInputComponent } from 'src/app/components/form-input/form-input.component';
@@ -8,6 +8,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ModalUsersComponent } from 'src/app/components/modal-users/modal-users.component';
@@ -17,6 +18,9 @@ import { Administrador } from 'src/app/interfaces/administrador';
 import { Paciente } from 'src/app/interfaces/paciente';
 import { Especialista } from 'src/app/interfaces/especialista';
 import { ToastrService } from 'ngx-toastr';
+import { FabbtnUsersComponent } from 'src/app/components/fabbtn-users/fabbtn-users.component';
+import { HorarioService } from 'src/app/services/horario.service';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +36,8 @@ import { ToastrService } from 'ngx-toastr';
     ReactiveFormsModule,
     ModalUsersComponent,
     SpinnerComponent,
+    FabbtnUsersComponent,
+    NgxCaptchaModule,
   ],
 })
 export class LoginComponent implements OnInit {
@@ -40,21 +46,30 @@ export class LoginComponent implements OnInit {
   showUsersModal: boolean = false;
   formLog: FormGroup;
   textError?: string;
+  user!: any;
+  key = "6LfYVrUmAAAAAA3FXerOH3cGzdfxLANSpXtyWf5I";
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private horarioService: HorarioService,
   ) {
     this.formLog = new FormGroup({
       email: new FormControl(),
       password: new FormControl(),
       showPassword: new FormControl(),
+      captcha: new FormControl (null, [Validators.required])
     });
   }
   ngOnInit(): void {}
 
   onSubmit() {
+    if (!this.captcha.valid) {
+      this.toastr.error('Por favor, complete el captcha', 'Error');
+      return;
+    }
+
     this.loading = true;
     this.showAlert = false;
     this.userService
@@ -70,18 +85,30 @@ export class LoginComponent implements OnInit {
 
   searchIntoFirestore(user: User) {
     this.userService.getUserById(user.uid).then((res) => {
-      const currentUser = res.data();
-      if (currentUser?.['type'] > 1 && !user.emailVerified) {
+      const currentUser = res.data() as any;
+      if (currentUser.type > 1 && !user.emailVerified) {
         this.toastr.error('Debes verificar tu email', 'Error de verificación');
-      } else if (currentUser?.['type'] === 2 && !currentUser?.['valid']) {
+      } else if (currentUser.type === 2 && !currentUser.valid) {
         this.toastr.error(
           'Un Administrador debe habilitar tu cuenta',
           'Sin autorización'
         );
       } else {
-        this.userService.setCurrentUser(
-          currentUser as Administrador | Paciente | Especialista
-        );
+        if (currentUser.type > 1 && !currentUser.emailVerified) {
+          this.userService.updateUser({ ...currentUser, emailVerified: true });
+
+          if (currentUser.type === 2) {
+            this.horarioService.addHorarioDefault(
+              currentUser.id,
+              currentUser.especialidad
+            );
+          }
+        }
+
+        this.userService.setCurrentUser({ ...currentUser, id: user.uid } as
+          | Administrador
+          | Paciente
+          | Especialista);
         this.router.navigate(['/bienvenido']);
       }
       this.loading = false;
@@ -120,5 +147,8 @@ export class LoginComponent implements OnInit {
   }
   get email() {
     return this.formLog.controls['email'];
+  }
+  get captcha() {
+    return this.formLog.controls['captcha'];
   }
 }
