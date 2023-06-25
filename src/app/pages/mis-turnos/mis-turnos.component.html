@@ -1,87 +1,48 @@
-<app-navbar (loadingEvent)="loading = $event" (userEvent)="user = $event"></app-navbar>
-<div class="main d-flex  justify-content-center py-4 bg-color-light">
-  <div class="content d-flex flex-column gap-4 ">
+<div class="main d-flex  justify-content-center py-4">
+  <div class="content d-flex flex-column gap-4">
     <div class="filter-container p-4 bg-color-primary rounded">
 
-      <app-filter-turnos [user]="user" [users]="users" [especialidades]="especialidades" [turnos]="this.turnos"
-        (filterTurnosEvent)="this.turnosCopy = $event;">
+      <app-filter-turnos #filter [user]="user" [users]="users" [especialidades]="especialidades" [turnos]="this.turnos"
+        [fechas]="fechas" [modeHistorial]="modeHistorial" (filterTurnosEvent)="this.turnosCopy = $event;">
       </app-filter-turnos>
 
     </div>
 
-    <div class="overflow-x-auto p-4 bg-color-primary rounded">
-      <table class="table text-center text-capitalize text-light">
-        <thead>
-          <tr>
-            <th *ngIf="user?.type === 3">Especialista</th>
-            <th *ngIf="user?.type === 2">Paciente</th>
-            <th>Especialidad</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-            <th>Accion</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let turno of turnosCopy; let i = index">
-            <td *ngIf="user?.type === 3">{{turno.especialista | nameUser: users}}</td>
-            <td *ngIf="user?.type === 2">{{turno.paciente | nameUser: users}}</td>
-            <td>{{turno.especialidad}}</td>
-            <td>{{turno.fecha}}</td>
-            <td>{{turno.estado}}</td>
-            <td>
-
-              <button *ngIf="turno.estado === 'libre'" class="btn btn-danger" (click)="setChange('cancelado', i)">
-                <i class="fas fa-xmark"></i>
-              </button>
-
-              <div *ngIf="turno.estado === 'pendiente'" class="d-flex gap-2 justify-content-center">
-                <!-- *Acepta -->
-                <button *ngIf="user?.type === 2" class="btn btn-success" (click)="setChange('aceptado', i)">
-                  <i class="fa-solid fa-check"></i>
-                </button>
-
-                <button *ngIf="user?.type === 2" class="btn btn-danger" (click)="bajaTurno('rechazado', i)">
-                  <i class="fas fa-xmark"></i>
-                </button>
-
-                <button *ngIf="user?.type === 3" class="btn btn-danger" (click)="bajaTurno('cancelado', i)">
-                  <i class="fas fa-xmark"></i>
-                </button>
-              </div>
-
-              <button *ngIf="turno.estado === 'aceptado' && user?.type === 2" class="btn btn-success"
-                (click)="setChange('realizado', i)">
-                <i class="fa-solid fa-check"></i>
-              </button>
-
-              <button *ngIf="turno.estado === 'realizado' && turno.review" class="btn btn-warning"
-                (click)="selectTurno(i)">
-                {{user?.type === 3 ? 'Mi reseña': 'Ver reseña'}}
-              </button>
-
-              <button *ngIf="turno.estado === 'realizado' && user?.type === 3 && !turno.review" class="btn btn-primary"
-                (click)="selectTurno(i)">
-                Calificar
-              </button>
-
-              <button *ngIf="turno.estado === 'cancelado' && turno.paciente !== null || turno.estado === 'rechazado' "
-                class="btn btn-danger" (click)="showMotivos(i)">
-                Ver Motivos
-              </button>
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="d-flex justify-content-center">
+      <div class="form-check form-switch fs-4">
+        <input formControlName="showPassword" class="form-check-input" type="checkbox" role="switch"
+          id="flexSwitchCheckChecked" (change)="showHistorialMode()">
+        <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">Tabla historial</label>
+      </div>
     </div>
+
+    <div class="overflow-x-auto p-4 bg-color-primary rounded">
+
+      <app-table-turnos [user]="user" [turnos]="turnosCopy" [users]="users" [modeHistorial]="modeHistorial"
+        (showModal)="showModal=$event" (showModalControl)="showModalControl=$event"
+        (showModalMotivos)="showModalMotivos=$event" (showModalReview)="showModalReview = $event"
+        (showModalDinamicos)="showModalDinamicos=$event" (turnoSelected)="turnoSelected = $event">
+      </app-table-turnos>
+
+    </div>
+    
   </div>
 </div>
 
 <app-modal-custom [showModal]="showModal">
   <h4>¿Estas seguro?</h4>
   <div class="d-flex gap-3">
-    <button class="btn btn-success" (click)="changeState()">Aceptar</button>
+    <button class="btn btn-success" (click)="updateTurno()">Aceptar</button>
     <button class="btn btn-danger" (click)="showModal = false">Cancelar</button>
+  </div>
+</app-modal-custom>
+
+<app-modal-custom [showModal]="showModalDinamicos" [closeBtn]="true" (hideModalEvent)="showModalDinamicos=$event">
+  <div>
+    <h4>Dinamicos:</h4>
+    <div *ngFor="let i of turnoSelected?.control?.dinamico">
+      <b class="text-capitalize">{{i.clave}}: </b> <span>{{i.valor}}</span>
+    </div>
   </div>
 </app-modal-custom>
 
@@ -90,4 +51,9 @@
 
 <app-modal-motivos [turno]="turnoSelected" [showModal]="showModalMotivos" (closeModalEvent)="showModalMotivos = $event"
   (loadingEvent)="loading = $event"></app-modal-motivos>
+
+<app-modal-control *ngIf="showModalControl" (hideModal)="showModalControl = $event"
+  (controlData)="completeTurno($event)"></app-modal-control>
+
+
 <app-spinner [showSpinner]="loading"></app-spinner>

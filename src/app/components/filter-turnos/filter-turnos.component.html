@@ -1,6 +1,6 @@
-<form [formGroup]="form" class="row d-flex gap-3 gap-sm-0">
+<form [formGroup]="form" class="row d-flex row-gap-2 justify-content-center">
 
-  <div class="col-12 col-sm-4">
+  <div class="col-12 col-sm-4 col-md-3 col-lg-2">
     <div class="form-floating">
       <select formControlName="esp" id="selectEsp" class="form-select text-capitalize">
         <option value="{{null}}">ninguno</option>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div *ngIf="user?.type === 2" class="col-12 col-sm-4">
+  <div *ngIf="user?.type === 2" class="col-12 col-sm-4 col-md-3 col-lg-2">
     <div class="form-floating">
       <select formControlName="paciente" id="selectEsp" class="form-select text-capitalize">
         <option value="{{null}}">ninguno</option>
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div *ngIf="user?.type !== 2" class="col-12 col-sm-4">
+  <div *ngIf="user?.type !== 2" class="col-12 col-sm-4 col-md-3 col-lg-2">
     <div class="form-floating">
       <select formControlName="especialista" id="selectEsp" class="form-select text-capitalize">
         <option value="{{null}}">ninguno</option>
@@ -34,8 +34,69 @@
     </div>
   </div>
 
-  <div class="col-12 col-sm-4">
-    <button type="submit" class="btn btn-primary w-100 h-100" (click)="filter()" [disabled]="!turnos ? true : false">Filtrar</button>
+  <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+    <div class="form-floating">
+      <select formControlName="fecha" id="selectEsp" class="form-select text-capitalize">
+        <option value="{{null}}">ninguno</option>
+        <option *ngFor="let fecha of fechas" value="{{fecha}}">{{fecha}}</option>
+      </select>
+      <label for="selectEsp">Fecha</label>
+    </div>
+  </div>
+
+  <div *ngIf="!modeHistorial" class="col-12 col-sm-4 col-md-3 col-lg-2">
+    <div class="form-floating">
+      <select formControlName="estado" id="selectEsp" class="form-select text-capitalize">
+        <option value="{{null}}">ninguno</option>
+        <option *ngIf="user?.type === 2" value="libre">libre</option>
+        <option value="pendiente">pendiente</option>
+        <option value="aceptado">aceptado</option>
+        <option value="rechazado">rechazado</option>
+        <option value="realizado">realizado</option>
+      </select>
+      <label for="selectEsp">Estado</label>
+    </div>
+  </div>
+
+  <ng-container *ngIf="modeHistorial">
+
+      <mat-form-field class="my-form-field text-capitalize col-12 col-sm-4 col-md-3 col-lg-2">
+        <mat-label>Agregar</mat-label>
+        <mat-select formControlName="plus" multiple (valueChange)="updateFilters($event)">
+          <mat-option *ngFor="let tag of tags" [value]="tag" class="text-capitalize">{{tag}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <ng-container *ngIf="plus.value">
+      <div *ngFor="let i of plus.value" class=" h-100 col-12 col-sm-4 col-md-3 col-lg-2">
+
+        <app-form-input *ngIf="i !== 'anteojos'" controlName="{{i}}" label="{{i}}" type="number" class="h-100{{form.controls[i].errors ? 'is-invalid': ''}}"
+        ></app-form-input>
+
+        <div *ngIf="i === 'anteojos'" class="form-floating">
+          <select formControlName="{{i}}" id="select" class="form-select {{form.controls[i].errors ? 'is-invalid': ''}}">
+            <option  [ngValue]="null">Ninguno</option>
+            <option  [ngValue]="true">Si</option>
+            <option  [ngValue]="false">No</option>
+          </select>
+          <label for="select" class="text-capitalize">{{i}}</label>
+        </div>
+      </div>            
+    </ng-container>
+
+  </ng-container>
+
+  
+
+  <div class="col-12 d-flex justify-content-center position-relative gap-3">
+    <div class="col-5 col-sm-3 col-md-2">
+      <button type="submit" class="btn btn-primary w-100 h-100" (click)="filter()"
+        [disabled]="!turnos ? true : false">Filtrar</button>
+    </div>
+    <div class="col-5 col-sm-3 col-md-2">
+      <button type="submit" class="btn btn-danger w-100 h-100" (click)="form.reset()"
+        [disabled]="!turnos ? true : false">Reset</button>
+    </div>
   </div>
 
 </form>

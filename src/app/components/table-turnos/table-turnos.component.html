@@ -1,0 +1,76 @@
+<table class="table text-center text-capitalize text-light">
+  <thead>
+    <tr>
+      <th *ngIf="user?.type !== 2">Especialista</th>
+      <th *ngIf="user?.type !== 3">Paciente</th>
+      <th>Especialidad</th>
+      <th>Fecha</th>
+      <th *ngIf="!modeHistorial">Estado</th>
+      <th *ngIf="modeHistorial">Altura</th>
+      <th *ngIf="modeHistorial">Peso</th>
+      <th *ngIf="modeHistorial">Temp</th>
+      <th *ngIf="modeHistorial">Presion</th>
+      <th *ngIf="modeHistorial">Dinamicos</th>
+      <th>Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let turno of turnos; let i = index">
+      <td *ngIf="user?.type !== 2">{{turno.especialista | nameUser: users}}</td>
+      <td *ngIf="user?.type !== 3">{{turno.paciente | nameUser: users}}</td>
+      <td>{{turno.especialidad}}</td>
+      <td>{{turno.fecha}}</td>
+      <td *ngIf="!modeHistorial">{{turno.estado}}</td>
+      <td *ngIf="modeHistorial">{{turno.control?.altura}}</td>
+      <td *ngIf="modeHistorial">{{turno.control?.peso}}</td>
+      <td *ngIf="modeHistorial">{{turno.control?.temperatura}}</td>
+      <td *ngIf="modeHistorial">{{turno.control?.presion}}</td>
+      <td *ngIf="modeHistorial">
+        <button class="btn btn-info" (click)="showDinamicos(i)">
+          <i class="fa-solid fa-info"></i>
+        </button>
+      </td>
+      <td>
+
+        <button *ngIf="turno.estado === 'libre'" class="btn btn-danger" (click)="setChange('delete', i)">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+        <div *ngIf="turno.estado === 'pendiente'" class="d-flex gap-2 justify-content-center">
+          <!-- *Acepta -->
+          <button *ngIf="user?.type === 2" class="btn btn-success" (click)="setChange('aceptado', i)">
+            <i class="fa-solid fa-check"></i>
+          </button>
+
+          <button *ngIf="user?.type === 2 || user?.type === 1" class="btn btn-danger" (click)="setChange('rechazado', i)">
+            <i class="fas fa-xmark"></i>
+          </button>
+
+          <button *ngIf="user?.type === 3" class="btn btn-danger" (click)="setChange('cancelado', i)">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </div>
+
+        <button *ngIf="turno.estado === 'aceptado' && user?.type === 2" class="btn btn-success"
+          (click)="setChange('realizado', i)">
+          <i class="fa-solid fa-check-double"></i>
+        </button>
+
+        <button *ngIf="turno.estado === 'realizado' && turno.review" class="btn btn-warning" (click)="showReview(i)">
+          {{user?.type === 3 ? 'Mi reseña': 'Ver reseña'}}
+        </button>
+
+        <button *ngIf="turno.estado === 'realizado' && user?.type === 3 && !turno.review" class="btn btn-primary"
+          (click)="showReview(i)">
+          Calificar
+        </button>
+
+        <button *ngIf="turno.estado === 'cancelado' && turno.paciente !== null || turno.estado === 'rechazado' "
+          class="btn btn-danger" (click)="showMotivos(i)">
+          Ver Motivos
+        </button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

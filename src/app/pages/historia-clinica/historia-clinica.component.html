@@ -1,0 +1,127 @@
+<div class="main d-flex justify-content-center pt-5 position-relative">
+
+  <div class="content d-flex flex-column gap-2 align-items-center">
+    <h2>Historia Clinica</h2>
+
+    <div class="contenedor position-relative">
+
+      <ng-container *ngIf="!loadingData && turnos && turnos.length > 0">
+        <div class="d-flex gap-2">
+          <table class="table text-center text-capitalize">
+            <thead>
+              <tr>
+                <th>PACIENTE</th>
+                <th>DNI</th>
+                <th>EDAD</th>
+                <th>OBRA SOCIAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{paciente?.name}} {{paciente?.lastName}}</td>
+                <td>{{paciente?.dni}}</td>
+                <td>{{paciente?.age}}</td>
+                <td>{{paciente?.obraSocial}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    
+        <div class="table-container bg-color-primary rounded p-4 overflow-x-auto">
+          <table class="table text-center text-capitalize text-light">
+            <thead>
+              <tr>
+                <th>Especialista</th>
+                <th>Especialidad</th>
+                <th>Fecha</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Temp</th>
+                <th>Presion</th>
+                <th>Dinamicos</th>
+                <th>Reseña</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let turno of turnos; let i = index">
+                <td>{{turno.especialista | nameUser: users}}</td>
+                <td>{{turno.especialidad}}</td>
+                <td>{{turno.fecha}}</td>            
+                <td>{{turno.control?.altura}}</td>
+                <td>{{turno.control?.peso}}</td>
+                <td>{{turno.control?.temperatura}}</td>
+                <td>{{turno.control?.presion}}</td>
+                <td>
+                  <button class="btn btn-info" (click)="showDinamicos(turno)">
+                    <i class="fa-solid fa-info"></i>
+                  </button>
+                </td>
+                <td>
+                  <button *ngIf="turno.review" class="btn btn-warning" (click)="showReview(turno)">
+                    {{user?.id === turno.paciente ? 'Mi reseña': 'Ver reseña'}}
+                  </button>
+          
+                  <button *ngIf="user?.id === turno.paciente && !turno.review" class="btn btn-primary"
+                    (click)="showReview(turno)">
+                    Calificar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button class="btn bg-color-secondary mt-3 text-light" (click)="showModalExport = true">
+          <i class="fa-solid fa-file-export"></i>
+          PDF
+        </button>
+      </ng-container>
+
+      <div *ngIf="!loadingData && !paciente" class="h-100 d-flex align-items-center justify-content-center">
+        <h4 class="text-danger">No se encontro al paciente</h4>
+      </div>
+
+      <div *ngIf="!loadingData && turnos && turnos.length === 0" class="h-100 d-flex  align-items-center justify-content-center">
+        <h4 class="text-danger">Aún no realizó ningun turno</h4>
+      </div>
+  
+      <app-spinner-bootstrap *ngIf="loadingData"></app-spinner-bootstrap>
+    </div>
+    
+  </div>
+  
+  <div *ngIf="!loadingData && turnos && turnos.length > 0" class="position-absolute top-0 end-0 me-4 mt-4 ">
+    
+  </div>
+  
+</div>
+
+
+<app-modal-custom [showModal]="showModalDinamicos" [closeBtn]="true" (hideModalEvent)="showModalDinamicos=$event">
+  <div>
+    <h4>Dinamicos:</h4>
+    <div *ngFor="let i of turnoSelected?.control?.dinamico">
+      <b class="text-capitalize">{{i.clave}}: </b> <span>{{i.valor}}</span>
+    </div>
+  </div>
+</app-modal-custom>
+
+<app-modal-custom [showModal]="showModalExport" [closeBtn]="true" (hideModalEvent)="showModalExport=$event">
+  <div class="d-flex flex-column align-items-center">
+    <h4>Filtrar por:</h4>
+    <form [formGroup]="form" (submit)="exportToPDF()" class="d-flex flex-column align-items-center">
+      <div class="form-floating">
+        <select formControlName="esp" id="especialista" class="form-select">
+          <option [ngValue]="null" selected>Ninguno</option>
+          <option *ngFor="let esp of especialistas" [ngValue]="esp">{{esp | nameUser: users}}</option>
+        </select>
+        <label for="especialista">Especialista</label>
+      </div>
+      <button class="btn bg-color-secondary text-light mt-3" type="submit">Exportar</button>
+    </form>
+  </div>
+</app-modal-custom>
+
+<app-modal-review [turno]="turnoSelected" [showModal]="showModalReview" (closeModalEvent)="showModalReview = $event" (loadingEvent)="loading = $event"></app-modal-review>
+
+<app-spinner [showSpinner]="loading"></app-spinner>

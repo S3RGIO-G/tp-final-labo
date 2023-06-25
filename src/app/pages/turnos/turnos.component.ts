@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
 import { SpinnerComponent } from 'src/app/components/spinner/spinner.component';
@@ -15,6 +15,7 @@ import { ModalReviewComponent } from 'src/app/components/modal-review/modal-revi
 import { ModalMotivosComponent } from 'src/app/components/modal-motivos/modal-motivos.component';
 import { FilterTurnosComponent } from 'src/app/components/filter-turnos/filter-turnos.component';
 import { NameUserPipe } from 'src/app/pipes/name-user.pipe';
+import { TableTurnosComponent } from 'src/app/components/table-turnos/table-turnos.component';
 
 @Component({
   selector: 'app-turnos',
@@ -23,10 +24,11 @@ import { NameUserPipe } from 'src/app/pipes/name-user.pipe';
     CommonModule,
     NavbarComponent,
     SpinnerComponent,
+    ModalCustomComponent,
     ModalMotivosComponent,
     ModalReviewComponent,
     FilterTurnosComponent,
-    NameUserPipe,
+    TableTurnosComponent,
   ],
   templateUrl: './turnos.component.html',
   styleUrls: ['./turnos.component.scss'],
@@ -39,17 +41,21 @@ export class TurnosComponent implements OnInit {
   turnos!: Turno[];
   turnosCopy!: Turno[];
   turnoSelected!: Turno;
+  showModal = false;
   showModalReview = false;
   showModalMotivos = false;
+  showModalDinamicos = false;
+  modeHistorial = false;
   subsUsers!: Subscription;
   subsEsp!: Subscription;
   subsTurnos!: Subscription;
+  fechas: string[] = [];
+  @ViewChild('filter') filter!: FilterTurnosComponent;
 
   constructor(
     private turnoService: TurnoService,
     private userService: UserService
-  ) {
-  }
+  ) {}
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
     this.subsUsers = this.userService.getUsers().subscribe((res) => {
@@ -62,25 +68,48 @@ export class TurnosComponent implements OnInit {
     this.subsTurnos = this.turnoService
       .getTurnosByDistinctEstado('libre')
       .subscribe((res) => {
-        const data = res.filter(turno => turno.paciente !== null);
-        this.turnos = data;
-        this.turnosCopy = data;
+        this.setTurnos(res);
       });
   }
 
-  bajaTurno(state: string, i: number) {
-    this.turnoSelected = { ...this.turnos[i], estado: state };
-    this.showModalMotivos = true;
+  setTurnos(arrayTurnos: Turno[]) {
+    arrayTurnos = arrayTurnos.sort((x, y) => {
+      const time1 = new Date(x.fecha).getTime();
+      const time2 = new Date(y.fecha).getTime();
+      return time1 > time2 ? 1 : time1 < time2 ? -1 : 0;
+    });
+
+    arrayTurnos.forEach((t) => {
+      const day = t.fecha.split(' ')[0];
+      if (!this.fechas.includes(day)) this.fechas.push(day);
+    });
+
+    this.turnos = arrayTurnos;
+    this.turnosCopy = arrayTurnos;
   }
 
-  showMotivos(i:number){
-    this.turnoSelected = this.turnos[i];
-    this.showModalMotivos = true;
+  updateTurno() {
+    this.loading = true;
+    this.showModal = false;
+    if (this.turnoSelected.estado === 'delete') {
+      this.turnoService
+        .deleteDocById(this.turnoSelected.id || '')
+        .then((res) => {
+          this.loading = false;
+        });
+    } else {
+      this.turnoService.updateTurnoById(this.turnoSelected).then((res) => {
+        this.loading = false;
+      });
+    }
   }
 
-  showReview(i: number) {
-    this.turnoSelected = this.turnos[i];
-    this.showModalReview = true;
+  showHistorialMode() {
+    this.filter.form.reset();
+    this.modeHistorial = !this.modeHistorial;
+    if (this.modeHistorial)
+      this.turnosCopy = this.turnos.filter((t) => t.estado === 'realizado');
+    else this.turnosCopy = this.turnos;
   }
 
   ngOnDestroy() {

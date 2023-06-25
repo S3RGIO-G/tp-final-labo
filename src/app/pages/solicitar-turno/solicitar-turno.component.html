@@ -1,6 +1,4 @@
-<app-navbar (loadingEvent)="loading = $event" (userEvent)="user = $event"></app-navbar>
-
-<div class="main d-flex justify-content-center align-items-start pt-4 bg-color-light">
+<div class="main d-flex justify-content-center align-items-start pt-4">
   <div class="container bg-color-primary rounded p-3 top-0 text-light d-flex flex-column gap-3">
     <div *ngIf="user?.type === 1">
       <h4>Pacientes</h4>

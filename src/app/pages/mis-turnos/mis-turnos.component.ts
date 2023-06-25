@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
 import { SpinnerComponent } from 'src/app/components/spinner/spinner.component';
@@ -16,6 +16,9 @@ import { ModalMotivosComponent } from 'src/app/components/modal-motivos/modal-mo
 import { FilterTurnosComponent } from 'src/app/components/filter-turnos/filter-turnos.component';
 import { DateTurnoPipe } from 'src/app/pipes/date-turno.pipe';
 import { NameUserPipe } from 'src/app/pipes/name-user.pipe';
+import { ModalControlComponent } from 'src/app/components/modal-control/modal-control.component';
+import { Control } from 'src/app/interfaces/control';
+import { TableTurnosComponent } from 'src/app/components/table-turnos/table-turnos.component';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -30,6 +33,8 @@ import { NameUserPipe } from 'src/app/pipes/name-user.pipe';
     FilterTurnosComponent,
     NameUserPipe,
     DateTurnoPipe,
+    ModalControlComponent,
+    TableTurnosComponent,
   ],
   templateUrl: './mis-turnos.component.html',
   styleUrls: ['./mis-turnos.component.scss'],
@@ -45,66 +50,89 @@ export class MisTurnosComponent implements OnInit {
   showModal = false;
   showModalReview = false;
   showModalMotivos = false;
-  subsUsers!: Subscription;
-  subsEsp!: Subscription;
-  subsTurnos!: Subscription;
+  showModalControl = false;
+  showModalDinamicos = false;
+  subsUsers!: Subscription;//
+  subsEsp!: Subscription;//
+  subsTurnos!: Subscription;//
+  modeHistorial = false;
+  fechas: string[] = [];
+  @ViewChild('filter') filter !: FilterTurnosComponent;
 
   constructor(
     private turnoService: TurnoService,
     private userService: UserService
-  ) {
-  }
-  ngOnInit(): void {
+  ) {}
+
+
+  ngOnInit() {
     this.user = this.userService.getCurrentUser();
     this.subsUsers = this.userService.getUsers().subscribe((res) => {
       this.users = res;
     });
+
     this.subsEsp = this.userService.getSpecialties().subscribe((res) => {
       this.especialidades = res;
     });
+
     if (this.user.type === 2) {
       this.subsTurnos = this.turnoService
         .getTurnosByEspecialista(this.user.id)
         .subscribe((res) => {
-          this.turnos = res;
-          this.turnosCopy = res;
+          this.setTurnos(res);
         });
+
     } else {
       this.subsTurnos = this.turnoService
         .getTurnosByPaciente(this.user.id)
         .subscribe((res) => {
-          this.turnos = res;
-          this.turnosCopy = res;
+          this.setTurnos(res);
         });
     }
   }
 
-  setChange(newState: string, i: number) {
-    this.turnoSelected = { ...this.turnos[i], estado: newState };
-    this.showModal = true;
+  showHistorialMode(){
+    this.filter.form.reset();
+    this.modeHistorial = !this.modeHistorial;
+    if(this.modeHistorial) this.turnosCopy = this.turnos.filter(t=>t.estado === 'realizado');
+    else this.turnosCopy = this.turnos;
   }
 
-  changeState() {
+  setTurnos(arrayTurnos: Turno[]) {
+    arrayTurnos = arrayTurnos.sort((x, y) => {
+      const time1 = new Date(x.fecha).getTime();
+      const time2 = new Date(y.fecha).getTime();
+      return time1 > time2 ? 1 : time1 < time2 ? -1 : 0;
+    });
+
+    arrayTurnos.forEach((t) => {
+      const day = t.fecha.split(' ')[0];
+      if (!this.fechas.includes(day)) this.fechas.push(day);
+    });
+
+    this.turnos = arrayTurnos;
+    this.turnosCopy = arrayTurnos;
+  }
+
+  updateTurno() {
     this.loading = true;
     this.showModal = false;
-    this.turnoService.updateTurnoById(this.turnoSelected).then((res) => {
-      this.loading = false;
-    });
+    if (this.turnoSelected.estado === 'delete') {
+      this.turnoService
+        .deleteDocById(this.turnoSelected.id || '')
+        .then((res) => {
+          this.loading = false;
+        });
+    } else {
+      this.turnoService.updateTurnoById(this.turnoSelected).then((res) => {
+        this.loading = false;
+      });
+    }
   }
 
-  bajaTurno(state: string, i:number){
-    this.turnoSelected = {...this.turnos[i], estado: state}
-    this.showModalMotivos = true;
-  }
-
-  showMotivos(i:number){
-    this.turnoSelected = this.turnos[i];
-    this.showModalMotivos = true;
-  }
-
-  selectTurno(i: number) {
-    this.turnoSelected = this.turnos[i];
-    this.showModalReview = true;
+  completeTurno(control: Control) {
+    this.turnoSelected.control = control;
+    this.updateTurno();
   }
 
   ngOnDestroy() {

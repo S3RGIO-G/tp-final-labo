@@ -1,3 +1,5 @@
+import { Control } from "./control";
+
 export interface Turno {
   id?: string;
   especialista: string;
@@ -11,4 +13,5 @@ export interface Turno {
     puntuacion: number;
   };
   motivo:string | null;
+  control: null | Control,
 }

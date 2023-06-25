@@ -68,20 +68,19 @@ $tp-final-labo-theme: mat.define-light-theme(
 }
 
 .btn-option, .btn-option:hover{
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary)!important;
 }
 
 .btn-invalid{
-  background-color: red;
-  border-color: red;
+  background-color: red!important;
+  border-color: red!important;
 }
 
 .btn-selected, .btn-selected:hover{
-  border-color: var(--color-tertiary);
-  border-style: groove;
+  border-color: var(--color-tertiary)!important;
+  border-style: inset!important;
 }
-
 
 html,
 body {

@@ -40,6 +40,7 @@ export class TurnoService {
         estado: 'libre',
         review: null,
         motivo: null,
+        control: null,
       }
       this.addTurno(turno);
     })
@@ -68,6 +69,11 @@ export class TurnoService {
 
   getTurnosByDistinctEstado(estado: string){
     const q = query(this.turnosRef, where('estado','!=', estado));
+    return collectionData(q, {idField:'id'}) as Observable< Turno[] >;
+  }
+
+  getTurnosRealizadosByPaciente(paciente: string){
+    const q = query(this.turnosRef, where('paciente','==', paciente), where('estado','==', 'realizado'));
     return collectionData(q, {idField:'id'}) as Observable< Turno[] >;
   }
 

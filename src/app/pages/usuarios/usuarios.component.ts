@@ -39,7 +39,7 @@ export class UsuariosComponent implements OnInit {
   constructor(private userService: UserService, private exporterService: ExporterService) {}
 
   ngOnInit(): void {
-
+    this.user = this.userService.getCurrentUser();
     this.userService.getUsers().subscribe(res=>{
       this.especialistasList = res.filter(u=> u.type === 2) as Especialista[];
       this.pacientesList = res.filter(u=> u.type === 3) as Paciente[];
@@ -68,8 +68,8 @@ export class UsuariosComponent implements OnInit {
         edad: 0,
         dni: 0,
         tipo: '',
-        especialidades: '',
-        obraSocial: ''
+        especialidades: '-',
+        obraSocial: '-'
       }
 
       user.nombre = u.name;

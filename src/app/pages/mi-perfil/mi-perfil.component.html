@@ -1,5 +1,4 @@
-<app-navbar (loadingEvent)="loading = $event" (userEvent)="user = $event"></app-navbar>
-<div class="main d-flex flex-column align-items-center text-light bg-color-light py-5 gap-4">
+<div class="main d-flex flex-column align-items-center text-light py-5 gap-4">
   <div class="row profile-container bg-color-primary  rounded d-flex p-4 gap-4">
     <div id="carouselExample" class="carousel slide d-flex justify-content-center col-12 col-md-5 col-lg-4">
       <div class="carousel-inner">
@@ -29,13 +28,17 @@
           <li><b>Edad: </b> {{user?.age}}</li>
           <li><b>DNI: </b> {{user?.dni}}</li>
           <li *ngIf="user?.type === 2"><b>Especialidad: </b> {{user?.especialidad}}</li>
-          <li *ngIf="user?.type === 3"><b>Obra Social: </b> {{user?.ObraSocial}}</li>
+          <li *ngIf="user?.type === 3"><b>Obra Social: </b> {{user?.obraSocial}}</li>
         </ul>
       </div>
     </div>
   </div>
   <button *ngIf="!showHorarios && user?.type === 2" class="btn btn-lg bg-color-secondary text-light" (click)="showHorarios = true">
     Mis horarios
+  </button>
+
+  <button *ngIf="user?.type === 3" class="btn btn-lg bg-color-secondary text-light" (click)="navigate(user.id)" >
+    Ver mi historial
   </button>
   <app-horarios *ngIf="showHorarios" [showHorarios]="showHorarios" [user]="user"
     (closeHorariosEvent)="showHorarios = $event" (loadingEvent)="loading = $event">

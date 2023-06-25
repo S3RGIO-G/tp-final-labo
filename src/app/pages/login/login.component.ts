@@ -21,6 +21,8 @@ import { ToastrService } from 'ngx-toastr';
 import { FabbtnUsersComponent } from 'src/app/components/fabbtn-users/fabbtn-users.component';
 import { HorarioService } from 'src/app/services/horario.service';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { slider } from 'src/app/animations/route-animations';
 
 @Component({
   selector: 'app-login',

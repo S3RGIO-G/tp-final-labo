@@ -1,8 +1,10 @@
-<div class="vh-100 bg-color-light">
+<div class="vh-100">
   <app-spinner [showSpinner]="loading"></app-spinner>
   <div class="container-fluid content h-100">
-    <a routerLink="/bienvenido"><i
-        class="fa-solid fa-arrow-left position-absolute top-0 start-0 m-4 fs-3  color-tertiary"></i></a>
+    <a routerLink="/bienvenido">
+      <i class="fa-solid fa-arrow-right position-absolute top-0 end-0 m-4 fs-3  color-tertiary">
+      </i>
+    </a>
 
     <form class="container" [formGroup]="formLog" (ngSubmit)="onSubmit()">
       <div class="row justify-content-center mb-3">

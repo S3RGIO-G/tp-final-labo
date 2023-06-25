@@ -110,12 +110,18 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turnoSelected = null;
     this.loadingTurnos = true;
     this.turnoService.getTurnos().subscribe((res) => {
-      this.turnos = res.filter(
+      res = res.filter(
         (turno) =>
           turno.especialista === this.especialista.value &&
           turno.especialidad === this.especialidad.value &&
-          turno.estado === 'libre'
+          turno.estado === 'libre'          
       );
+
+      this.turnos = res.sort((x, y) => {
+        const time1 = new Date(x.fecha).getTime();
+        const time2 = new Date(y.fecha).getTime();
+        return time1 > time2 ? 1 : time1 < time2 ? -1 : 0;
+      });
       this.loadingTurnos = false;
     });
   }

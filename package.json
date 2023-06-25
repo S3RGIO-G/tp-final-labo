@@ -27,6 +27,7 @@
     "ngx-captcha": "^13.0.0",
     "ngx-filesaver": "^16.0.0",
     "ngx-toastr": "^16.2.0",
+    "pdfmake": "^0.2.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.5",

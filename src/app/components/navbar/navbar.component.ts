@@ -28,6 +28,7 @@ export class NavbarComponent {
     this.userEvent.emit(this.usuario);
     this.userService.getCurrentUserObs().subscribe(res=>{
       let user = res[0] as Administrador & Especialista & Paciente;
+      
       if(user && user.type === 2 && !user.valid ){
         this.router.navigate(['/bienvenido']);
       }

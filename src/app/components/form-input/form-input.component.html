@@ -2,7 +2,7 @@
   <div class="form-floating mb-2">
     <input [type]="type" class="form-control {{class}}" [formControlName]="controlName" [id]="controlName" 
       [placeholder]="label" [readonly]="readOnly">
-    <label [for]="controlName">{{label}}</label>
+    <label [for]="controlName" class="text-capitalize">{{label}}</label>
     <ng-content></ng-content>
   </div>
 </ng-container>

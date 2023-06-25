@@ -1,3 +1,5 @@
+import { Control } from "./control";
+
 export interface Historia{
   paciente:string;
   pacienteName: string, //Creo que no es necesario
@@ -5,14 +7,12 @@ export interface Historia{
     {
       fecha: string,
       especialista: string,
-      altura: number,
-      peso: number,
-      temperatura: number,
-      presion: number,
-      dinamico:{
-        clave:string,
-        valor:number,
-      }
+      especialidad: string, 
+      review: null | {
+        comentario: string;
+        puntuacion: number;
+      }, 
+      control: Control;
     }
   ]
 }
