@@ -8,6 +8,7 @@ import { LoginPacOrAdminGuard } from './guards/login-pac-or-admin.guard';
 import { LoginPacOrEspGuard } from './guards/login-pac-or-esp.guard';
 import { LogoutOrAdminGuard } from './guards/logout-or-admin.guard';
 import { HistoriaClinicaComponent } from './pages/historia-clinica/historia-clinica.component';
+import { LoginEspecialistaGuard } from './guards/login-especialista.guard';
 
 
 const routes: Routes = [
@@ -83,12 +84,19 @@ const routes: Routes = [
       
   },
   {
-    path: 'historia-clinica/:id', //*
+    path: 'historia-clinica/:id',
     title: 'Historia Clinica',
     loadComponent: () =>
       import('./pages/historia-clinica/historia-clinica.component').then((m) => m.HistoriaClinicaComponent),
-      canActivate: [LoginGuard],
       data:{animation: 'historia'},
+  },
+  {
+    path: 'pacientes', //*Especialista
+    title: 'Pacientes',
+    loadComponent: () =>
+      import('./pages/pacientes/pacientes.component').then((m) => m.PacientesComponent),
+      canActivate: [LoginEspecialistaGuard],
+      data:{animation: 'pacientes'},
   },
   {
     path: '**',

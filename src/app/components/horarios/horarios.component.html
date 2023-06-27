@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let esp of horario?.especialidades; let iesp = index" class="text-capitalize">
+        <tr *ngFor="let esp of horario?.especialidades; let iesp = index" class="text-capitalize align-middle">
           <td>{{esp.name}}</td>
           <td *ngFor="let item of esp.days; let iday = index">
             <mat-radio-button type="radio" name="{{item.day}}" value="{{item.day}}" [checked]="item.valid"

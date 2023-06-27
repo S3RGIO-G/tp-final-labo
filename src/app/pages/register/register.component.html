@@ -1,4 +1,4 @@
-<div class="container-fluid content h-100 px-1 py-3">
+<div #main class="main d-flex justify-content-center align-items-center  py-4">
   <a routerLink="/bienvenido">
     <i class="fa-solid fa-arrow-left position-absolute top-0 start-0 m-4 fs-3 color-tertiary">
     </i>
@@ -20,13 +20,13 @@
     <div class="row justify-content-center">
       <div  class="col-10 p-0 mb-2">
         <div class=" d-flex justify-content-center gap-4 ">
-          <button type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event,3)">
+          <button appPressEfect type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event,3)">
             <img src="../../../assets/users/pacient.png " class="img-user">
           </button>
-          <button type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event,2)">
+          <button appPressEfect type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event,2)">
             <img src="../../../assets/users/doctor.png" class="img-user">
           </button>
-          <button *ngIf="user?.type === 1" type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event, 1)">
+          <button appPressEfect *ngIf="user?.type === 1" type="button" class="btn btn-user btn-option {{type.errors ? 'btn-invalid': ''}}" (click)="selectTypeUser($event, 1)">
             <img src="../../../assets/users/admin.png" class="img-user">
           </button>
         </div>
@@ -132,7 +132,7 @@
       </div>
 
       <div class="col-12 d-flex justify-content-center">
-        <button class="btn bg-color-primary text-light" expand="block" shape="round" type="submit">
+        <button appBtnScale [scale]="1.2" class="btn bg-color-primary text-light" expand="block" shape="round" type="submit">
           Crear cuenta
         </button>
       </div>

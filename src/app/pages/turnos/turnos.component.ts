@@ -16,6 +16,7 @@ import { ModalMotivosComponent } from 'src/app/components/modal-motivos/modal-mo
 import { FilterTurnosComponent } from 'src/app/components/filter-turnos/filter-turnos.component';
 import { NameUserPipe } from 'src/app/pipes/name-user.pipe';
 import { TableTurnosComponent } from 'src/app/components/table-turnos/table-turnos.component';
+import { BoolToStringPipe } from 'src/app/pipes/bool-to-string.pipe';
 
 @Component({
   selector: 'app-turnos',
@@ -29,6 +30,7 @@ import { TableTurnosComponent } from 'src/app/components/table-turnos/table-turn
     ModalReviewComponent,
     FilterTurnosComponent,
     TableTurnosComponent,
+    BoolToStringPipe,
   ],
   templateUrl: './turnos.component.html',
   styleUrls: ['./turnos.component.scss'],

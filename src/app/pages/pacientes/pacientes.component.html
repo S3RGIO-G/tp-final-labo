@@ -1,0 +1,49 @@
+<div class="main d-flex justify-content-center py-4">
+
+  <div class="d-flex flex-column align-items-center p-3 gap-4 position-relative">
+    <b class="fs-2">Pacientes</b>
+
+    <div *ngIf="!loadingData && !showTurnos && pacientes && pacientes.length > 0"
+      class="table rounded bg-color-primary px-3 overflow-y-auto">
+
+      <app-table-usuarios [pacientesList]="pacientes" [headers]="['Usuario', 'DNI', 'Edad', 'Obra Social', 'Historial' ]">
+      </app-table-usuarios>
+
+    </div>
+
+    <ng-container *ngIf="showTurnos">
+      <div class="table rounded bg-color-primary p-3 overflow-y-auto">
+        <app-table-turnos *ngIf="showTurnos" [user]="user" [turnos]="turnosCopy" [users]="pacientes"
+          [modeHistorial]="true" (showModalReview)="showModalReview = $event"
+          (showModalDinamicos)="showModalDinamicos=$event" (turnoSelected)="turnoSelected = $event">
+        </app-table-turnos>
+      </div>
+      <button class="btn btn-danger" (click)="showTurnos = false">Volver</button>
+    </ng-container>
+
+    <div *ngIf="loadingData" class="spinner-container position-relative">
+      <app-spinner-bootstrap></app-spinner-bootstrap>
+    </div>
+
+    <h4 *ngIf="!loadingData && pacientes && pacientes.length === 0" class="text-danger">
+      Aún no tienes pacientes registrados
+    </h4>
+
+  </div>
+  <app-fabbtn-users *ngIf="pacientes && pacientes.length > 0" [users]="pacientes" icon="fa-solid fa-circle-info"
+    (SelectUserEvent)="selectedUser($event)"></app-fabbtn-users>
+</div>
+
+<app-modal-custom [showModal]="showModalDinamicos" [closeBtn]="true" (hideModalEvent)="showModalDinamicos=$event">
+  <div>
+    <h4>Dinamicos:</h4>
+    <div *ngFor="let i of turnoSelected?.control?.dinamico" class="text-capitalize">
+      <b>{{i.clave}}: </b> <span>{{i.valor | boolToString}}</span>
+    </div>
+  </div>
+</app-modal-custom>
+
+<app-modal-review [turno]="turnoSelected" [showModal]="showModalReview" (closeModalEvent)="showModalReview = $event"
+  (loadingEvent)="loading = $event"></app-modal-review>
+
+<app-spinner [showSpinner]="loading"></app-spinner>

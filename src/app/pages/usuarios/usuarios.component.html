@@ -1,27 +1,30 @@
-<div class="main d-flex justify-content-center align-items-center">
+<div class="main d-flex justify-content-center align-items-center py-4">
 
   <div class="text-center">
-    <h2>Usuarios</h2>
     <div class="table-container d-flex flex-column p-3 gap-1">
-      <div class="h-50 bg-color-primary rounded p-3">
-        <div class="h-100 overflow-y-auto px-3">
+      <b class="fs-4">Especialistas</b>
+      <div class="table-parent rounded bg-color-primary px-3 pb-3 overflow-y-auto">
+        <div class="  px-3">
           <app-table-usuarios [especialistasList]="especialistasList"
             [headers]="['Usuario', 'DNI', 'Edad', 'Especialidad', 'Habilitado']" [especialidades]="especialidades"
             (changeValidityEvent)="changeValidity($event)"></app-table-usuarios>
         </div>
       </div>
-
-      <div class="h-50 bg-color-primary rounded p-3">
-        <div class="h-100 overflow-y-auto px-3">
+      <b class="fs-4">Pacientes</b>
+      <div class="table-parent rounded bg-color-primary px-3 pb-3 overflow-y-auto">        
+        <div class="  px-3">
           <app-table-usuarios [pacientesList]="pacientesList"
-            [headers]="['Usuario', 'DNI', 'Edad', 'Obra Social' ]"></app-table-usuarios>
+            [headers]="['Usuario', 'DNI', 'Edad', 'Obra Social', 'Historial' ]"></app-table-usuarios>
         </div>
       </div>
     </div>
-    <button class="btn btn-primary mt-3" routerLink="/register">Crear Nuevo</button>
-    <button class="btn bg-color-tertiary text-light mt-3 ms-2" (click)="exportUsers()" [disabled]="!users">Exportar a
+    <button appBtnScale [scale]="1.2" class="btn bg-color-secondary text-light" routerLink="/register">Crear Nuevo</button>
+    <button appBtnScale [scale]="1.2" class="btn bg-color-tertiary text-light ms-4" (click)="exportUsers()" [disabled]="!users">
+      <i class="fa-solid fa-file-export"></i>
       Excel</button>
   </div>
+
+  <app-fabbtn-users *ngIf="users" [users]="pacientesList" icon="fa-solid fa-download" (SelectUserEvent)="exportTurnosUser($event)"></app-fabbtn-users>
 </div>
 
 <app-spinner [showSpinner]="loading"></app-spinner>

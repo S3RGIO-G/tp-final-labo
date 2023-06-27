@@ -1,4 +1,4 @@
-<table class="table m-0 ">
+<table class="table m-0 text-center">
   <thead class="text-light">
     <tr>
       <th *ngFor="let item of headers">{{item}}</th>
@@ -7,7 +7,7 @@
   <tbody>
 
     <ng-container *ngFor="let user of pacientesList">
-      <tr>
+      <tr appRowTable color="#ddd">
         <td>
           <div class="user-info gap-3">
             <div class="user-info__img">
@@ -27,11 +27,16 @@
         <td>{{user.age}}</td>
 
         <td class="obraSocial"><span>{{user.obraSocial}}</span></td>
+        <td>
+          <button class="btn bg-color-secondary text-light" (click)="navigate(user.id || '')">
+            Historial
+          </button>
+        </td>
       </tr>
     </ng-container>
 
     <ng-container *ngFor="let user of especialistasList">
-      <tr>
+      <tr appRowTable color="#ddd">
         <td>
           <div class="user-info gap-3">
             <div class="user-info__img">

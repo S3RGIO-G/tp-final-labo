@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AlertComponent } from 'src/app/components/alert/alert.component';
 import { FormInputComponent } from 'src/app/components/form-input/form-input.component';
@@ -23,6 +23,8 @@ import { HorarioService } from 'src/app/services/horario.service';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { slider } from 'src/app/animations/route-animations';
+import { FabbtnAccountsComponent } from 'src/app/components/fabbtn-accounts/fabbtn-accounts.component';
+import { BtnScaleDirective } from 'src/app/directives/btn-scale.directive';
 
 @Component({
   selector: 'app-login',
@@ -38,8 +40,9 @@ import { slider } from 'src/app/animations/route-animations';
     ReactiveFormsModule,
     ModalUsersComponent,
     SpinnerComponent,
-    FabbtnUsersComponent,
+    FabbtnAccountsComponent,
     NgxCaptchaModule,
+    BtnScaleDirective,
   ],
 })
 export class LoginComponent implements OnInit {
@@ -50,6 +53,7 @@ export class LoginComponent implements OnInit {
   textError?: string;
   user!: any;
   key = "6LfYVrUmAAAAAA3FXerOH3cGzdfxLANSpXtyWf5I";
+  @ViewChild('main') main !: ElementRef;
 
   constructor(
     private userService: UserService,
@@ -152,5 +156,9 @@ export class LoginComponent implements OnInit {
   }
   get captcha() {
     return this.formLog.controls['captcha'];
+  }
+
+  ngOnDestroy(){
+    this.main.nativeElement.classList.add('main-close');
   }
 }

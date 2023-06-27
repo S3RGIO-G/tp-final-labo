@@ -1,11 +1,14 @@
-<div class="fabs">
-  <div class="action bg-color-primary" (click)="toggleBtn(null)">
-    <i class="fas {{open? 'fa-times' : 'fa-plus'}}"></i>
+<div class="fabs bottom-0 end-0 me-3 mb-3 me-md-4 mb-md-4 d-flex justify-content-center align-items-center">
+  <div class="action bg-color-tertiary d-flex justify-content-center align-items-center text-light"
+    (click)="toggleBtn(null)">
+    <i class="icon fs-2 {{open? 'fas fa-times' : icon}}"></i>
   </div>
 
-  <div class="btns {{open? 'open' : ''}}">
-    <div *ngFor="let item of users" class="btn bg-color-primary d-flex align-items-center justify-content-center" (click)="toggleBtn(item)">
-      <img src="{{item.img}}" alt="">
+  <div class="btns">
+    <div *ngFor="let user of users"
+      class="btn btn-opt bg-color-tertiary d-flex flex-column align-items-center justify-content-center" (click)="toggleBtn(user)">
+      <small class="btn-name fw-bold text-info position-absolute bottom-0 mb-2">{{user.name}} {{user.lastName}}</small>
+      <img src="{{user.images[0]}}" class="btn-img">
     </div>
   </div>
 </div>

@@ -15,12 +15,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let turno of turnos; let i = index">
+    <tr appRowTable color="#5e64a3" *ngFor="let turno of turnos; let i = index" class="align-middle">
       <td *ngIf="user?.type !== 2">{{turno.especialista | nameUser: users}}</td>
       <td *ngIf="user?.type !== 3">{{turno.paciente | nameUser: users}}</td>
       <td>{{turno.especialidad}}</td>
       <td>{{turno.fecha}}</td>
-      <td *ngIf="!modeHistorial">{{turno.estado}}</td>
+      <td appTurnoState [text]="turno.estado" *ngIf="!modeHistorial" >{{turno.estado}}</td>
       <td *ngIf="modeHistorial">{{turno.control?.altura}}</td>
       <td *ngIf="modeHistorial">{{turno.control?.peso}}</td>
       <td *ngIf="modeHistorial">{{turno.control?.temperatura}}</td>
@@ -60,7 +60,7 @@
           {{user?.type === 3 ? 'Mi reseña': 'Ver reseña'}}
         </button>
 
-        <button *ngIf="turno.estado === 'realizado' && user?.type === 3 && !turno.review" class="btn btn-primary"
+        <button *ngIf="turno.estado === 'realizado' && user?.type === 3 && !turno.review" class="btn bg-color-secondary text-light"
           (click)="showReview(i)">
           Calificar
         </button>

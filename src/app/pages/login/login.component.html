@@ -1,6 +1,6 @@
-<div class="vh-100">
-  <app-spinner [showSpinner]="loading"></app-spinner>
-  <div class="container-fluid content h-100">
+<div #main class="main d-flex justify-content-center align-items-center">
+  
+  <div class="container-fluid">
     <a routerLink="/bienvenido">
       <i class="fa-solid fa-arrow-right position-absolute top-0 end-0 m-4 fs-3  color-tertiary">
       </i>
@@ -51,13 +51,15 @@
 
 
         <div class="col-12 d-flex justify-content-center">
-          <button class="btn bg-color-primary text-light" expand="block" shape="round" type="submit">
+          <button appBtnScale [scale]="1.2" class="btn bg-color-primary text-light" expand="block" shape="round" type="submit">
             Iniciar Sesion
           </button>
         </div>
       </div>
     </form>
 
-    <app-fabbtn-users (SelectUserEvent)="userSelected($event)"></app-fabbtn-users>
+    <app-fabbtn-accounts (SelectUserEvent)="userSelected($event)"></app-fabbtn-accounts>
   </div>
 </div>
+
+<app-spinner [showSpinner]="loading"></app-spinner>

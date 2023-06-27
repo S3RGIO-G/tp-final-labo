@@ -9,7 +9,7 @@
           </div>
         </div>
 
-        <button type="button" *ngFor="let pac of pacientes"
+        <button appPressEfect group=".btn-paciente" type="button" *ngFor="let pac of pacientes"
           class="btn btn-option btn-paciente d-flex flex-column text-center align-items-center"
           (click)="selectPaciente(pac, $event, '.btn-paciente')">
           <img src="{{pac.images[0]}}" class="img-user">
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <button type="button" *ngFor="let esp of especialistas"
+        <button appPressEfect group=".btn-especialista" type="button" *ngFor="let esp of especialistas"
           class="btn btn-option btn-especialista d-flex flex-column text-center align-items-center"
           (click)="selectEspecialista(esp, $event, '.btn-especialista')">
           <img src="{{esp.images[0]}}" class="img-user">
@@ -39,7 +39,7 @@
     <div *ngIf="especialista.value !== null">
       <h4>Especialidades</h4>
       <div class="especialidad-container d-flex gap-3 overflow-x-auto pb-2">
-        <button type="button" *ngFor="let especialidad of especialidadesDisp"
+        <button appPressEfect group=".btn-esp" type="button" *ngFor="let especialidad of especialidadesDisp"
           class="btn btn-option btn-esp d-flex flex-column text-center align-items-center text-capitalize position-relative"
           (click)="selectEspecialidad(especialidad, $event, '.btn-esp')">
           <b class="position-absolute top-0">{{especialidad.name}}</b>
@@ -58,7 +58,7 @@
           </div>
         </div>
 
-        <button type="button" *ngFor="let turno of turnos"
+        <button appPressEfect group=".btn-turno" type="button" *ngFor="let turno of turnos"
           class="btn btn-option btn-turno d-flex text-center align-items-center text-capitalize"
           (click)="selectTurno(turno, $event, '.btn-turno')">
           <b class="h-100 d-flex align-items-center">{{turno.fecha | dateTurno}}</b>

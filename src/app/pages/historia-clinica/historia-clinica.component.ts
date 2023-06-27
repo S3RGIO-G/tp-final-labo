@@ -5,7 +5,7 @@ import { Administrador } from 'src/app/interfaces/administrador';
 import { Especialista } from 'src/app/interfaces/especialista';
 import { Paciente } from 'src/app/interfaces/paciente';
 import { Turno } from 'src/app/interfaces/turno';
-import { Route, Router, ActivatedRoute } from '@angular/router';
+import { Route, Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { TurnoService } from 'src/app/services/turno.service';
 import { ModalReviewComponent } from 'src/app/components/modal-review/modal-review.component';
@@ -13,7 +13,10 @@ import { ModalCustomComponent } from 'src/app/components/modal-custom/modal-cust
 import { SpinnerComponent } from 'src/app/components/spinner/spinner.component';
 import { SpinnerBootstrapComponent } from 'src/app/components/spinner-bootstrap/spinner-bootstrap.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import { TableConfig, jsPDF } from 'jspdf';
+import { BoolToStringPipe } from 'src/app/pipes/bool-to-string.pipe';
+import { RowTableDirective } from 'src/app/directives/row-table.directive';
+import { BtnScaleDirective } from 'src/app/directives/btn-scale.directive';
 
 @Component({
   selector: 'app-historia-clinica',
@@ -26,6 +29,10 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
     SpinnerComponent,
     SpinnerBootstrapComponent,
     ReactiveFormsModule,
+    BoolToStringPipe,
+    RouterModule,
+    RowTableDirective,
+    BtnScaleDirective,
   ],
   templateUrl: './historia-clinica.component.html',
   styleUrls: ['./historia-clinica.component.scss'],
@@ -43,7 +50,7 @@ export class HistoriaClinicaComponent {
   showModalReview = false;
   showModalExport = false;
   especialistas: string[] = [];
-  form : FormGroup;
+  form: FormGroup;
 
   constructor(
     private router: Router,
@@ -52,9 +59,8 @@ export class HistoriaClinicaComponent {
     private turnoService: TurnoService
   ) {
     this.form = new FormGroup({
-      esp : new FormControl(null),
-    })
-
+      esp: new FormControl(null),
+    });
   }
 
   async ngOnInit() {
@@ -69,7 +75,7 @@ export class HistoriaClinicaComponent {
       });
 
       this.turnoService
-        .getTurnosRealizadosByPaciente(this.paciente.id || '')
+        .getTurnosRealizadosByField(this.paciente.id || '', 'paciente')
         .subscribe((res) => {
           this.setTurnos(res);
           this.loadingData = false;
@@ -104,41 +110,63 @@ export class HistoriaClinicaComponent {
     this.showModalReview = true;
   }
 
-  exportToPDF(){
+  back(){
+    history.back()
+  }
+
+  exportToPDF() {
+    
     const value = this.form.controls['esp'].value;
-    if(value){
-      this.createPDF();
+    if (value) {
+      const turnos = this.turnos.filter((t) => t.especialista === value);
+      this.createPDF(turnos);
+      this.showModalExport =false;
+    } else {
+      this.createPDF(this.turnos);
+      this.showModalExport =false;
     }
   }
 
+  createPDF(turnos: Turno[]) {
+    
+    const data: any = [];
+    turnos.forEach((t) => {
+      const esp = this.users.filter((u) => u.id === t.especialista)[0];
+      const obj = {
+        Especialista: `${esp.name} ${esp.lastName}`,
+        Especialidad: t.especialidad,
+        Fecha: t.fecha,
+        Altura: t.control?.altura.toString(),
+        Peso: t.control?.peso.toString(),
+        Temperatura: t.control?.temperatura.toString(),
+        Presion: t.control?.presion.toString(),
+      };
+      data.push(obj);
+    });
 
+    const headers = [
+      'Especialista',
+      'Especialidad',
+      'Fecha',
+      'Altura',
+      'Peso',
+      'Temperatura',
+      'Presion',
+    ];
+    const config: TableConfig = {
+      headerBackgroundColor: '#5188FF',
+      autoSize: false,
+      padding: 5,
+      fontSize:14
+    };
 
-  createPDF(){
-    const pdfDefinition: any = {
-      content:[
-        {
-          text:'hola mundo'
-        }
-      ]
-    }
+    const now = new Date(Date.now()).toLocaleString().split(',').join(' ');
+    const pdf = new jsPDF('p','pt','a4');
 
+    pdf.addImage('../../../assets/icon.png', 'JPG', 500, 50, 75, 75);
+    pdf.text('HISTORIA CLINICA:',20, 100);    
+    pdf.text(`Fecha: ${now}`,20, 125);
+    pdf.table(20, 150, data, headers, config);
+    pdf.save('historial_'+ now +'.pdf');
   }
 }
-
-
-
-// {
-//   style: 'tableExample',
-//   table: {
-//     headerRows: 1,
-//     body: [
-//       [{text: 'Header 1', style: 'tableHeader'}, {text: 'Header 2', style: 'tableHeader'}, {text: 'Header 3', style: 'tableHeader'}],
-//       ['Sample value 1', 'Sample value 2', 'Sample value 3'],
-//       ['Sample value 1', 'Sample value 2', 'Sample value 3'],
-//       ['Sample value 1', 'Sample value 2', 'Sample value 3'],
-//       ['Sample value 1', 'Sample value 2', 'Sample value 3'],
-//       ['Sample value 1', 'Sample value 2', 'Sample value 3'],
-//     ]
-//   },
-//   layout: 'lightHorizontalLines'
-// },

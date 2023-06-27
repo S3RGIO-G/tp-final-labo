@@ -6,10 +6,13 @@
         <span class="ms-2 text-white">Inicio</span>
       </a>
       <div *ngIf="usuario?.type === 1"  class="h-100">
-        <a class="fs-5 text-decoration-none text-light" routerLink="/usuarios">Usuarios</a>
+        <a class="fs-5 text-decoration-none text-light p-2" routerLink="/usuarios">Usuarios</a>
       </div>
       <div *ngIf="usuario?.type !== null">
-        <a class="fs-5 text-decoration-none text-light" routerLink="/perfil">Perfil</a>
+        <a class="fs-5 text-decoration-none text-light p-2" routerLink="/perfil">Perfil</a>
+      </div>
+      <div *ngIf="usuario?.type === 2">
+        <a class="fs-5 text-decoration-none text-light" routerLink="/pacientes">Pacientes</a>
       </div>
       <div *ngIf="usuario?.type !== null" class="dropdown-center">
         <span class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false ">
@@ -46,7 +49,7 @@
         <button class="btn text-light btn-login">Iniciar Sesión</button>
       </a>
       <a routerLink="/register">
-        <button class="btn btn-primary ms-2 btn-register">Registrarme</button>
+        <button class="btn bg-color-secondary text-light ms-2 btn-register">Registrarme</button>
       </a>
     </div>
 

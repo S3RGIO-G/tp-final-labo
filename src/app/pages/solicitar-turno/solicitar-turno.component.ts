@@ -12,6 +12,7 @@ import { Especialidad } from 'src/app/interfaces/especialidad';
 import { Turno } from 'src/app/interfaces/turno';
 import { Subscription } from 'rxjs';
 import { DateTurnoPipe } from 'src/app/pipes/date-turno.pipe';
+import { PressEfectDirective } from 'src/app/directives/press-efect.directive';
 
 @Component({
   selector: 'app-solicitar-turno',
@@ -23,6 +24,7 @@ import { DateTurnoPipe } from 'src/app/pipes/date-turno.pipe';
     ReactiveFormsModule,
     ModalCustomComponent,
     DateTurnoPipe,
+    PressEfectDirective,
   ],
   templateUrl: './solicitar-turno.component.html',
   styleUrls: ['./solicitar-turno.component.scss'],

@@ -37,6 +37,7 @@ $tp-final-labo-theme: mat.define-light-theme(
 * {
   --color-primary: #444874;
   --color-secondary: #5188FF;
+  --color-secondary-hover: #4472d5;
   --color-tertiary: #0B1136;
   --color-light: #ececec;
 }
@@ -57,9 +58,16 @@ $tp-final-labo-theme: mat.define-light-theme(
 .bg-color-primary {
   background-color: var(--color-primary) !important;
 }
+
 .bg-color-secondary {
   background-color: var(--color-secondary) !important;
+  border: none;
 }
+
+.bg-color-secondary:hover {
+  background-color: var(--color-secondary-hover) !important;
+}
+
 .bg-color-tertiary {
   background-color: var(--color-tertiary) !important;
 }

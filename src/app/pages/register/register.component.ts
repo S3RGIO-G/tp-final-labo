@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -21,6 +21,8 @@ import { ImageService } from 'src/app/services/image.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '@angular/fire/auth';
 import { Especialidad } from 'src/app/interfaces/especialidad';
+import { BtnScaleDirective } from 'src/app/directives/btn-scale.directive';
+import { PressEfectDirective } from 'src/app/directives/press-efect.directive';
 
 @Component({
   selector: 'app-register',
@@ -36,6 +38,8 @@ import { Especialidad } from 'src/app/interfaces/especialidad';
     ReactiveFormsModule,
     SpinnerComponent,
     ModalCustomComponent,
+    BtnScaleDirective,
+    PressEfectDirective,
   ],
 })
 export class RegisterComponent implements OnInit {
@@ -48,6 +52,7 @@ export class RegisterComponent implements OnInit {
   user!: Administrador | Especialista | Paciente | null;
   especialidades!: Array<Especialidad>;
   imgUploaded !: File[];
+  @ViewChild('main') main !: ElementRef;
 
   constructor(
     private userService: UserService,
@@ -252,5 +257,9 @@ export class RegisterComponent implements OnInit {
   }
   get espName() {
     return this.formEsp.controls['espName'];
+  }
+
+  ngOnDestroy(){
+    this.main.nativeElement.classList.add('main-close');
   }
 }

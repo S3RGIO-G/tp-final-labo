@@ -1,11 +1,9 @@
-
-.content{
-  width: 100%;
+.main{
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
 
+.main-close{
+  min-height: 90vh;
 }
 
 form{

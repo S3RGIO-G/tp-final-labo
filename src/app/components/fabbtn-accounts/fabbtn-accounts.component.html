@@ -1,0 +1,11 @@
+<div class="fabs bottom-0 end-0 me-3 mb-3 me-md-4 mb-md-4 d-flex justify-content-center align-items-center">
+  <div class="action bg-color-tertiary d-flex justify-content-center align-items-center text-light" (click)="toggleBtn(null)">
+    <i class="fas {{open? 'fa-times' : 'fa-plus'}}"></i>
+  </div>
+
+  <div class="btns {{open? 'open' : ''}}">
+    <div *ngFor="let item of users" class="btn btn-opt bg-color-tertiary d-flex align-items-center justify-content-center" (click)="toggleBtn(item)">
+      <img src="{{item.img}}" alt="">
+    </div>
+  </div>
+</div>

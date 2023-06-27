@@ -19,6 +19,7 @@ import { NameUserPipe } from 'src/app/pipes/name-user.pipe';
 import { ModalControlComponent } from 'src/app/components/modal-control/modal-control.component';
 import { Control } from 'src/app/interfaces/control';
 import { TableTurnosComponent } from 'src/app/components/table-turnos/table-turnos.component';
+import { BoolToStringPipe } from 'src/app/pipes/bool-to-string.pipe';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -33,6 +34,7 @@ import { TableTurnosComponent } from 'src/app/components/table-turnos/table-turn
     FilterTurnosComponent,
     NameUserPipe,
     DateTurnoPipe,
+    BoolToStringPipe,
     ModalControlComponent,
     TableTurnosComponent,
   ],
@@ -52,18 +54,17 @@ export class MisTurnosComponent implements OnInit {
   showModalMotivos = false;
   showModalControl = false;
   showModalDinamicos = false;
-  subsUsers!: Subscription;//
-  subsEsp!: Subscription;//
-  subsTurnos!: Subscription;//
+  subsUsers!: Subscription; //
+  subsEsp!: Subscription; //
+  subsTurnos!: Subscription; //
   modeHistorial = false;
   fechas: string[] = [];
-  @ViewChild('filter') filter !: FilterTurnosComponent;
+  @ViewChild('filter') filter!: FilterTurnosComponent;
 
   constructor(
     private turnoService: TurnoService,
     private userService: UserService
   ) {}
-
 
   ngOnInit() {
     this.user = this.userService.getCurrentUser();
@@ -77,24 +78,24 @@ export class MisTurnosComponent implements OnInit {
 
     if (this.user.type === 2) {
       this.subsTurnos = this.turnoService
-        .getTurnosByEspecialista(this.user.id)
+        .getTurnosByField(this.user.id, 'especialista')
         .subscribe((res) => {
           this.setTurnos(res);
         });
-
     } else {
       this.subsTurnos = this.turnoService
-        .getTurnosByPaciente(this.user.id)
+        .getTurnosByField(this.user.id, 'paciente')
         .subscribe((res) => {
           this.setTurnos(res);
         });
     }
   }
 
-  showHistorialMode(){
+  showHistorialMode() {
     this.filter.form.reset();
     this.modeHistorial = !this.modeHistorial;
-    if(this.modeHistorial) this.turnosCopy = this.turnos.filter(t=>t.estado === 'realizado');
+    if (this.modeHistorial)
+      this.turnosCopy = this.turnos.filter((t) => t.estado === 'realizado');
     else this.turnosCopy = this.turnos;
   }
 

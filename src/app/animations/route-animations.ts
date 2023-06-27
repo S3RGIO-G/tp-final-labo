@@ -12,6 +12,7 @@ export const slider = trigger('routeAnimations', [
   transition('* => register', slideToDefault('right')),
   transition('register => *', slideToDefault('left')),
   transition('login => *', slideToDefault('right')),
+  transition('historia => *', slideTo('left'),),
   transition('* <=> *', slideTo('right'),),
 ]);
 
@@ -24,6 +25,7 @@ function slideTo(direction: string) {
         style({
           position: 'absolute',
           width: '100%',
+          
           [direction]: 0,
         }),
       ],
@@ -54,6 +56,7 @@ function slideToDefault(direction: string) {
         style({
           position: 'absolute',
           width: '100%',
+          overflow: 'hidden',
           [direction]: 0,
         }),
       ],

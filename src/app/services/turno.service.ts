@@ -15,6 +15,7 @@ import {
   deleteDoc,
   getDocs,
   DocumentReference,
+  QuerySnapshot,
 } from '@angular/fire/firestore';
 import { Turno } from '../interfaces/turno';
 import { Observable, Subscription } from 'rxjs';
@@ -58,12 +59,9 @@ export class TurnoService {
     const q = query(this.turnosRef, where('especialista','==',especialista),where('nameDay', '==', nameDay), where('especialidad', '==', especialidad))
     return collectionData(q, {idField:'id'}) as Observable< Turno[] >;
   }
-  getTurnosByEspecialista(especialista: string){
-    const q = query(this.turnosRef, where('especialista','==',especialista))
-    return collectionData(q, {idField:'id'}) as Observable< Turno[] >;
-  }
-  getTurnosByPaciente(paciente: string){
-    const q = query(this.turnosRef, where('paciente','==', paciente))
+
+  getTurnosByField(fieldData: string, fieldName: string){
+    const q = query(this.turnosRef, where(fieldName,'==', fieldData));
     return collectionData(q, {idField:'id'}) as Observable< Turno[] >;
   }
 
@@ -71,10 +69,15 @@ export class TurnoService {
     const q = query(this.turnosRef, where('estado','!=', estado));
     return collectionData(q, {idField:'id'}) as Observable< Turno[] >;
   }
-
-  getTurnosRealizadosByPaciente(paciente: string){
-    const q = query(this.turnosRef, where('paciente','==', paciente), where('estado','==', 'realizado'));
+  
+  getTurnosRealizadosByField(fieldData: string, fieldName: string){
+    const q = query(this.turnosRef, where(fieldName,'==', fieldData), where('estado','==', 'realizado'));
     return collectionData(q, {idField:'id'}) as Observable< Turno[] >;
+  }
+  
+  getTurnosRealizadosByFieldPromise(fieldData: string, fieldName: string){
+    const q = query(this.turnosRef, where(fieldName,'==', fieldData), where('estado','==', 'realizado'));
+    return getDocs(q) as Promise<QuerySnapshot<Turno>>;
   }
 
   getTurnos(){

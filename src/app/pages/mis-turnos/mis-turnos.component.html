@@ -40,8 +40,8 @@
 <app-modal-custom [showModal]="showModalDinamicos" [closeBtn]="true" (hideModalEvent)="showModalDinamicos=$event">
   <div>
     <h4>Dinamicos:</h4>
-    <div *ngFor="let i of turnoSelected?.control?.dinamico">
-      <b class="text-capitalize">{{i.clave}}: </b> <span>{{i.valor}}</span>
+    <div *ngFor="let i of turnoSelected?.control?.dinamico" class="text-capitalize">
+      <b >{{i.clave}}: </b> <span>{{i.valor | boolToString}}</span>
     </div>
   </div>
 </app-modal-custom>

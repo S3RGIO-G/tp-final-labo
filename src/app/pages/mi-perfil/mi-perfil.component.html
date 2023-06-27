@@ -33,11 +33,11 @@
       </div>
     </div>
   </div>
-  <button *ngIf="!showHorarios && user?.type === 2" class="btn btn-lg bg-color-secondary text-light" (click)="showHorarios = true">
+  <button appBtnScale [scale]="1.2" *ngIf="!showHorarios && user?.type === 2" class="btn btn-lg bg-color-secondary text-light" (click)="showHorarios = true">
     Mis horarios
   </button>
 
-  <button *ngIf="user?.type === 3" class="btn btn-lg bg-color-secondary text-light" (click)="navigate(user.id)" >
+  <button appBtnScale [scale]="1.2" *ngIf="user?.type === 3" class="btn btn-lg bg-color-secondary text-light" (click)="navigate(user.id)" >
     Ver mi historial
   </button>
   <app-horarios *ngIf="showHorarios" [showHorarios]="showHorarios" [user]="user"
