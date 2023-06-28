@@ -1,21 +1,21 @@
 # Trabajo Practico Labo IV "La clinica"
 En este documento se detallará tanto las secciones que contiene, como su funcionamiento.
-
+<br>
 ## Bienvenido
-![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/8c490f63-b30b-4408-bf74-f9180b035538)#
-
-Esta es la seccion de <b>bienvenida<b>, tiene accesso <b>cualquier<b> usuario, esté o no logueado. 
-Desde la barra de navegacion pordrias acceder a los botones `Iniciar sesión` y `Registrarme`, que te llevaran a sus respectivas secciones.
-
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/8c490f63-b30b-4408-bf74-f9180b035538)
+<br>
+Esta es la seccion de <b>bienvenida</b>, tiene accesso <b>cualquier</b> usuario, esté o no logueado. <br>
+Desde la barra de navegacion pordrias acceder a los botones `Iniciar sesión` y `Registrarme`, que te llevaran a sus respectivas secciones.<br>
+<br>
 ## Iniciar sesión
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/69407ac0-2023-46e2-a85e-100f8c8f5404)
-
-Desde aquí podras iniciar sesion ingresando tu correo electronico y contraseña. 
-A esta seccion solo pueden acceder los usuarios que aun no iniciaron sesión.
-Tambien se mostrara un botón `FAB`.
+<br>
+Desde aquí podras iniciar sesion ingresando tu correo electronico y contraseña. <br>
+A esta seccion solo pueden acceder los usuarios que aun no iniciaron sesión.<br>
+Tambien se mostrara un botón `FAB`.<br>
 
 ### FAB
-![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/892f17a3-3936-440c-a3c4-d5307e2945ee)
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/892f17a3-3936-440c-a3c4-d5307e2945ee)<br>
 Este botón te permitira acceder de forma rapida al sistema con una cuenta del tipo que selecciones.
 
 
