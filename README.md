@@ -106,6 +106,21 @@ Ademas de agregar mas filtros:
 <br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/2899d91a-195a-4458-a198-67b1d2e97e0a)
 
+## Pacientes
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/4f0bddba-6098-415a-bd0a-8d965af905fe)
+
+Solo puede acceder un `Especialista`, mostrará una lista de todos los `Pacientes` que atendió por los menos **una vez** el `Especialista`, 
+desde este listado tambien podrá acceder a la **historia clinica** del `Paciente`.
+<br>
+### FAB:
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/c5871b7d-e4bc-43bd-ac2e-17793b4ef5e4)
+
+Este botón te permitirá elegir a un `Paciente` y al seleccionarlo, **cambiará el contenido** de la tabla y mostrará todos los **turnos** que tuvo ese paciente con el `Especialista`.
+<br>
+<br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/f941519c-d54a-4dc8-8505-c0ad610b9d3a)
+
+
 
 
 
