@@ -1,15 +1,23 @@
-#Trabajo Practico Labo IV "La clinica"
+# Trabajo Practico Labo IV "La clinica"
 En este documento se detallará tanto las secciones que contiene, como su funcionamiento.
-<b>sdsd<b>
 
 ## Bienvenido
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/8c490f63-b30b-4408-bf74-f9180b035538)#
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Esta es la seccion de <b>bienvenida<b>, tiene accesso <b>cualquier<b> usuario, esté o no logueado. 
+Desde la barra de navegacion pordrias acceder a los botones `Iniciar sesión` y `Registrarme`, que te llevaran a sus respectivas secciones.
 
-## Code scaffolding
+## Iniciar sesión
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/69407ac0-2023-46e2-a85e-100f8c8f5404)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Desde aquí podras iniciar sesion ingresando tu correo electronico y contraseña. 
+A esta seccion solo pueden acceder los usuarios que aun no iniciaron sesión.
+Tambien se mostrara un botón `FAB`.
+
+### FAB
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/892f17a3-3936-440c-a3c4-d5307e2945ee)
+Este botón te permitira acceder de forma rapida al sistema con una cuenta del tipo que selecciones.
+
 
 ## Build
 
