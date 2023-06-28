@@ -5,7 +5,7 @@ En este documento se detallará tanto las secciones que contiene, como su funcio
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/8c490f63-b30b-4408-bf74-f9180b035538)
 <br>
 Esta es la seccion de **bienvenida**, tiene accesso **cualquier** usuario, esté o no logueado. <br>
-Desde la barra de navegacion pordrias acceder a los botones `Iniciar sesión` y `Registrarme`, que te llevaran a sus respectivas secciones.<br>
+Desde la barra de navegacion podrias acceder a los botones `Iniciar sesión` y `Registrarme`, que te llevaran a sus respectivas secciones.<br>
 <br>
 ## Iniciar sesión
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/69407ac0-2023-46e2-a85e-100f8c8f5404)
@@ -23,8 +23,33 @@ Este botón te permitira acceder de forma rapida al sistema con una cuenta del t
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/9bb8f2dd-a0d4-48cb-a6e1-51eb455e1b5c)
 <br>
 Aca podes **crear** una cuenta nueva de cualquier tipo: `Paciente`, `Especialista`. El `Administrador` solo lo puede crear otro **administrador**.<br>
-Dependiendo de que tipo eligas los datos necesarios para la creacion van a cambiar.
+Dependiendo de que tipo elijas los datos necesarios para la creacion van a cambiar.
 <br>
+
+## Perfil
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/3ae680ed-b7b3-4d7a-ba89-8d6d4ec802da)
+<br>
+A este apartado solo pueden acceder los usuarios **logueados**, y en él se mostrarán toda la informacion personal del usuario.<br>
+Si el usuario es un **Especialista** se le mostrará el botón `Mis horarios`,
+y si es un **Paciente** se mostrará el botón `Ver mi historial`
+
+### Ver mi historial:
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/892480ba-ef2a-493b-89ec-d64b42fe4501)
+<br>
+Este botón enviará al paciente a la seccion `Historia Clinica`
+
+### Mis horarios: 
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e44d961e-b28c-4c78-9ed1-610716fafc45)
+<br>
+Este boton despliega una ventana en la que el **especialista** podrá cambiar los dias que desea atender por cada especialidad que tenga. <br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/15249e16-e47f-4e74-b92c-7a3b9bc25c42)
+<br>
+Dentro de esta ventana, para hacer efectivos los cambios debe presionar el boton `Actualizar`.<br>
+El botón `Crear Turnos` desplegará una ventana modal: <br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/8267b664-3d4a-4cc6-9965-cc639be2eec8)
+<br>
+Se debe seleccionar la especialidad y el dia, esto generará los dias disponibles dentro de los proximos 15 dias. <br>
+Una vez seleccionado todo, se completa el alta con el botón `aceptar`, lo que creará los turnos con un estado `libre`<br>
 
 ## Usuarios
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/d5b3e361-081c-4bab-a343-254ee2ea5b5b)
