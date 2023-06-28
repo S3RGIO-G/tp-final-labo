@@ -121,6 +121,79 @@ Este botón te permitirá elegir a un `Paciente` y al seleccionarlo, **cambiará
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/f941519c-d54a-4dc8-8505-c0ad610b9d3a)
 
 
+## Mis turnos
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/2313ed50-7223-4dec-8fa7-6d0c8f77621e)
+Solo puede acceder un `Paciente` o `Especialista` <br>
+Al igual que en la seccion `Gestionar turnos`, se mostrará un listado de turnos asignados a ese **paciente** o **especialista**,
+el cual se podrá filtrar y cambiar al **modo** `historial` con sus respectivos filtros.
+<br>
+La diferencia radica en las acciones que puede realizar cada tipo de usuario.
+
+### Especialista
+El especialista puede:
+<br><br>
+`Eliminar` los turnos `libres`.
+<br><br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/1f8351b5-b850-4417-a275-59b2d717f3ac)
+<br><br>
+`Aceptar` o `Rechazar` los turnos `pendientes`, en caso de rechazo se tiene que indicar los motivos.
+<br><br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/2e8080cd-597c-422f-abd2-e8d40f661805)
+<br><br>
+`Realizar` los turnos `aceptados`.
+<br><br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/c2fdad6f-197c-4ba8-8358-0742c835d988)
+<br><br>
+Al querer realizar un turno el **especialista** debe llenar un formulario con los datos del control del **paciente**:
+<br><br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/ee39981d-b1b8-40d5-a532-6c292fbe71b0)
+
+### Paciente
+El paciente puede:
+<br><br>
+`Cancelar` los turnos `pendientes`, indicando el motivo.
+<br><br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/71f07403-184c-42de-a367-4376a77ef3a8)
+<br><br>
+`Calificar` los turnos `realizados`.
+<br><br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/caf46e44-60fb-4a17-99e1-3f1f7c65385a)
+<br><br>
+
+# Historia clinica
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
