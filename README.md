@@ -159,10 +159,21 @@ El paciente puede:
 `Calificar` los turnos `realizados`.
 <br><br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/caf46e44-60fb-4a17-99e1-3f1f7c65385a)
-<br><br>
+<br>
 
 # Historia clinica
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/7f3880d3-b292-4a2e-8778-e6452df38501)
+<br>
+Puede acceder **cualquier** usuario, muestra un listado con todos los turnos `Realizados` del paciente, 
+ademas de permitir ver la **reseña** que dejó y **calificar** en caso de que sea tu historial.
 
+### PDF
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/fba5f1a9-c1e0-4acd-aaab-abd1b8495c4d)
+<br>
+Este botón exporta toda la informacion de la tabla a un documento PDF, permitiendote filtrar por especialista.
+<br><br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/ced8e951-e4e8-4b99-b297-f5cdbdaed6e4)
+<br>
 
 
 
