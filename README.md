@@ -41,11 +41,15 @@ Este botón enviará al paciente a la seccion `Historia Clinica`
 ### Mis horarios: 
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e44d961e-b28c-4c78-9ed1-610716fafc45)
 <br>
-Este boton despliega una ventana en la que el **especialista** podrá cambiar los dias que desea atender por cada especialidad que tenga. <br>
+Este boton despliega una ventana en la que el **especialista** podrá cambiar los dias que desea atender por cada especialidad que tenga. 
+<br>
+<br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/15249e16-e47f-4e74-b92c-7a3b9bc25c42)
 <br>
 Dentro de esta ventana, para hacer efectivos los cambios debe presionar el boton `Actualizar`.<br>
-El botón `Crear Turnos` desplegará una ventana modal: <br>
+El botón `Crear Turnos` desplegará una ventana modal: 
+<br> 
+<br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/8267b664-3d4a-4cc6-9965-cc639be2eec8)
 <br>
 Se debe seleccionar la especialidad y el dia, esto generará los dias disponibles dentro de los proximos 15 dias. <br>
