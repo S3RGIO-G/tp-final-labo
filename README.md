@@ -1,4 +1,4 @@
-![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/781fe0c9-d39a-4708-814d-6d30a1e26956)# Trabajo Practico Labo IV "La clinica"
+# Trabajo Practico Labo IV "La clinica"
 En este documento se detallará tanto las secciones que contiene, como su funcionamiento.
 <br>
 ## Bienvenido
