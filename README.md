@@ -62,36 +62,29 @@ A esta seccion solo puede acceder el **administrador**, mostrará un listado de 
 Dentro de este listado podrá `habilitar` o `deshabilitar` el acceso de un **especialista** o consultar el `historial` de un **paciente**.
 <br>
 
-### Crear nuevo
+### Crear nuevo:
 Envia al **administrador** a la pagina de `registro` para que pueda dar de alta un usuario.
 <br>
-### Excel 
+### Excel: 
 **Exporta** la informacion de los usuarios a una tabla en un documento `xlsx`.
 <br>
-### FAB
+### FAB:
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e0b94ec0-9308-42d1-beb4-1cbda1f133c0)
 <br>
 Muestra los **pacientes** y al seleccionar uno, **exporta** la informacion de todos sus turnos `realizados` a un documento `xlsx`.
 <br>
 
+## Solicitar turno
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/10c1edcf-bf17-4853-80ae-36a8b25f8461)
+
+<br>
+Solo pueden acceder un `Paciente` o `Administrador`, para solicitar un turno se debe seleccionar al **especialista**, la **especialidad** y luego el turno disponible que mas se ajuste a su horario. 
+<br>
+Cabe recalcar que no todos los especialistas tienen turnos disponibles, esto depende de si crearon turnos o no.
+<br>
+En caso de que el usuario sea un `Administrador`, tambien debera seleccionar el **paciente** al que le asignará el turno.
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
