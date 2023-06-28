@@ -23,6 +23,7 @@ import { User } from '@angular/fire/auth';
 import { Especialidad } from 'src/app/interfaces/especialidad';
 import { BtnScaleDirective } from 'src/app/directives/btn-scale.directive';
 import { PressEfectDirective } from 'src/app/directives/press-efect.directive';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-register',
@@ -40,6 +41,7 @@ import { PressEfectDirective } from 'src/app/directives/press-efect.directive';
     ModalCustomComponent,
     BtnScaleDirective,
     PressEfectDirective,
+    MatSelectModule,
   ],
 })
 export class RegisterComponent implements OnInit {
@@ -162,7 +164,7 @@ export class RegisterComponent implements OnInit {
         break;
       case 2:
         this.type.setValue(2);
-        this.formReg.addControl('especialidad', new FormControl());
+        this.formReg.addControl('especialidad', new FormControl(null, [Validators.required]));
         if (this.formReg.controls['obraSocial'])
           this.formReg.removeControl('obraSocial');
         break;
@@ -180,7 +182,6 @@ export class RegisterComponent implements OnInit {
 
   selectImages(event: any) {
     this.imgUploaded = event.target.files;
-    console.log(this.imgUploaded);
     if (this.imgUploaded.length !== 2 && this.type.value === 2 || this.imgUploaded.length !== 1 && this.type.value !== 2 ) {
       this.images.setErrors({ images: true });
       return;

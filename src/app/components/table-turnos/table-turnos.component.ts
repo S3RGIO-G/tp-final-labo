@@ -7,11 +7,12 @@ import { Especialista } from 'src/app/interfaces/especialista';
 import { NameUserPipe } from 'src/app/pipes/name-user.pipe';
 import { TurnoStateDirective } from 'src/app/directives/turno-state.directive';
 import { RowTableDirective } from 'src/app/directives/row-table.directive';
+import { TurnoHistorialDirective } from 'src/app/directives/turno-historial.directive';
 
 @Component({
   selector: 'app-table-turnos',
   standalone: true,
-  imports: [CommonModule, NameUserPipe, TurnoStateDirective, RowTableDirective],
+  imports: [CommonModule, NameUserPipe, TurnoStateDirective, RowTableDirective, TurnoHistorialDirective],
   templateUrl: './table-turnos.component.html',
   styleUrls: ['./table-turnos.component.scss'],
 })

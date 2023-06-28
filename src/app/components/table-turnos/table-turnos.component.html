@@ -23,8 +23,8 @@
       <td appTurnoState [text]="turno.estado" *ngIf="!modeHistorial" >{{turno.estado}}</td>
       <td *ngIf="modeHistorial">{{turno.control?.altura}}</td>
       <td *ngIf="modeHistorial">{{turno.control?.peso}}</td>
-      <td *ngIf="modeHistorial">{{turno.control?.temperatura}}</td>
-      <td *ngIf="modeHistorial">{{turno.control?.presion}}</td>
+      <td appTurnoHistorial [text]="'temp'" [number]="turno.control?.temperatura || 35" *ngIf="modeHistorial">{{turno.control?.temperatura}}</td>
+      <td appTurnoHistorial [text]="'pres'" [number]="turno.control?.presion || 75" *ngIf="modeHistorial">{{turno.control?.presion}}</td>
       <td *ngIf="modeHistorial">
         <button class="btn btn-info" (click)="showDinamicos(i)">
           <i class="fa-solid fa-info"></i>

@@ -84,15 +84,12 @@
       <!-- //TODO: INPUT ESPECIALIDAD -->
       <ng-container *ngIf="type.value === 2">
         <div class="col-6 col-sm-8 p-0 ">
-          <div class="">
-            <label for="selectProfession">Especialidad</label>
-            <select formControlName="especialidad"
-              class="form-select form-control mb-2 text-capitalize {{especialidad.errors ? 'is-invalid': ''}}" id="selectProfession" multiple>
-              <option *ngFor="let item of especialidades" [value]="item.name">
-                {{item.name}}
-              </option>
-            </select>
-          </div>
+          <mat-form-field class=" w-100 text-capitalize mb-2" >
+            <mat-label>Especialidad</mat-label>
+            <mat-select formControlName="especialidad" multiple>
+              <mat-option *ngFor="let esp of especialidades" [value]="esp.name" class="text-capitalize">{{esp.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <div class="col-4 col-sm-2 p-0 ps-2 pb-2 d-flex align-items-center justify-content-center">
           <button class="btn bg-color-tertiary w-100 h-100 text-light" type="button" (click)="showModal = true">
