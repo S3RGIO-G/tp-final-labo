@@ -2,8 +2,8 @@
   <div class="content d-flex flex-column gap-4">
     <div class="filter-container p-4 bg-color-primary rounded">
 
-      <app-filter-turnos #filter [user]="user" [users]="users" [especialidades]="especialidades" [turnos]="this.turnos"
-        [fechas]="fechas" [modeHistorial]="modeHistorial" (filterTurnosEvent)="this.turnosCopy = $event;">
+      <app-filter-turnos #filter [user]="user" [users]="users" [especialidades]="especialidades" [turnos]="turnos"
+        [fechas]="fechas" [modeHistorial]="modeHistorial" (filterTurnosEvent)="turnosCopy = $event;">
       </app-filter-turnos>
 
     </div>
@@ -11,7 +11,7 @@
     <div class="d-flex justify-content-center">
       <div class="form-check form-switch fs-4">
         <input formControlName="showPassword" class="form-check-input" type="checkbox" role="switch"
-          id="flexSwitchCheckChecked" (change)="showHistorialMode()">
+          id="flexSwitchCheckChecked" (change)="showHistorialMode()" [disabled]="!turnos">
         <label class="form-check-label fw-bold" for="flexSwitchCheckChecked">Tabla historial</label>
       </div>
     </div>

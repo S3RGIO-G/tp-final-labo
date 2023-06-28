@@ -5,9 +5,11 @@
 
 .modal-content{
   background-color: aliceblue;
-  max-width: 350px;
+  width: max-content;
+  max-width: 400px;
+  min-width: 200px;
   border-radius: 25px;
-  padding: 40px;
+  padding: 20px;
 }
 
 i{

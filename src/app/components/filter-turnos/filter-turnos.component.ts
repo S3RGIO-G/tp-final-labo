@@ -30,17 +30,8 @@ import { VariableBinding } from '@angular/compiler';
   styleUrls: ['./filter-turnos.component.scss'],
 })
 export class FilterTurnosComponent implements OnInit {
-  tags: string[] = [
-    'altura',
-    'peso',
-    'temperatura',
-    'presion',
-    'caries',
-    'anteojos',
-    'glucosa',
-    'glob. rojos',
-  ];
   form: FormGroup;
+  showModalFilters = false;
   @Input() user!: any;
   @Input() users!: Administrador[] | Paciente[] | Especialista[];
   @Input() especialidades!: Especialidad[];
@@ -57,6 +48,14 @@ export class FilterTurnosComponent implements OnInit {
       fecha: new FormControl(null),
       estado: new FormControl(null),
       plus: new FormControl(null),
+      altura: new FormControl(null),
+      peso: new FormControl(null),
+      temperatura: new FormControl(null),
+      presion: new FormControl(null),
+      caries: new FormControl(null),
+      glucosa: new FormControl(null),
+      anteojos: new FormControl(null),
+      colesterol: new FormControl(null),
     });
   }
 
@@ -64,86 +63,115 @@ export class FilterTurnosComponent implements OnInit {
     this.user = this.userService.getCurrentUser();
   }
 
-  filter() {
-    let turnos = this.turnos;
-    if (this.esp.value)
-      turnos = turnos.filter((t) => t.especialidad === this.esp.value);
+  filter(list: Turno[] = this.turnos): Turno[] {
+    let turnos = list;
 
-    if (this.paciente.value)
-      turnos = turnos.filter((t) => t.paciente === this.paciente.value);
+    //* Comienza
+    turnos = turnos.filter((t) => {
+      const date = t.fecha.split(' ')[0];
 
-    if (this.especialista.value)
-      turnos = turnos.filter((t) => t.especialista === this.especialista.value);
+      if (this.fecha.value && date !== this.fecha.value) {
+        return false;
+      }
 
-    if (this.fecha.value)
-      turnos = turnos.filter((t) => {
-        const date = t.fecha.split(' ')[0];
-        return date === this.fecha.value;
-      });
+      if (
+        this.estado.value &&
+        !this.modeHistorial &&
+        t.estado !== this.estado.value
+      )
+        return false;
+      else if (this.modeHistorial && t.estado !== 'realizado') return false;
 
-    if (this.estado.value && !this.modeHistorial)
-      turnos = turnos.filter((t) => t.estado === this.estado.value);
-    else if (this.modeHistorial)
-      turnos = turnos.filter((t) => t.estado === 'realizado');
+      if (this.esp.value && t.especialidad !== this.esp.value) {
+        return false;
+      }
+      if (this.paciente.value && t.paciente !== this.paciente.value) {
+        return false;
+      }
 
-    if (this.plus.value) {
-      this.plus.value.forEach((i: string) => {
-        const ctrl = this.form.controls[i];
-        if (ctrl.value !== '' && ctrl.value !== null) {
-          turnos = this.getFilteredList(turnos, ctrl, i);
+      if (
+        this.especialista.value &&
+        t.especialista !== this.especialista.value
+      ) {
+        return false;
+      }
+
+      if (
+        this.altura.value &&
+        t.control?.altura !== parseInt(this.altura.value)
+      ) {
+        return false;
+      }
+      if (this.peso.value && t.control?.peso !== parseInt(this.peso.value)) {
+        return false;
+      }
+      if (
+        this.temperatura.value &&
+        t.control?.temperatura !== parseInt(this.temperatura.value)
+      ) {
+        return false;
+      }
+
+      if (
+        this.presion.value &&
+        t.control?.presion !== parseInt(this.presion.value)
+      ) {
+        return false;
+      }
+
+      let response = true;
+      let countCaries = 0;
+      let countAnteojos = 0;
+      let countGlucosa = 0;
+      let countColesterol = 0;
+      const lenght = t.control?.dinamico?.length;
+
+      t.control?.dinamico?.forEach((d) => {
+        if (this.caries.value) {
+          if (d.clave === 'caries' && d.valor !== parseInt(this.caries.value)) {
+            response = false;
+          } else if (d.clave !== 'caries') {
+            countCaries++;
+          }
+
+          if (countCaries === lenght) response = false;
+        }
+
+        if (this.anteojos.value !== null) {
+          if (d.clave === 'anteojos' && d.valor !== this.anteojos.value) {
+            response = false;
+          } else if (d.clave !== 'anteojos') countAnteojos++;
+
+          if (countAnteojos === lenght) response = false;
+        }
+
+        if (this.glucosa.value) {
+          if (d.clave === 'glucosa' && d.valor !== parseInt(this.glucosa.value))
+            response = false;
+          else if(d.clave !== 'glucosa') countGlucosa++;
+
+          if (countGlucosa === lenght) response = false;
+        }
+
+        //TODO: definir si usar globulos rojos
+        if (this.colesterol.value) {
+          if (d.clave === 'colesterol' && d.valor !== parseInt(this.colesterol.value))
+            response = false;
+          else if(d.clave !== 'colesterol') countColesterol++;
+
+          if (countColesterol === lenght) response = false;
         }
       });
-    }
-    this.filterTurnosEvent.emit(turnos);
-  }
-
-  updateFilters(event: string[]) {
-    const diff = this.tags.filter((i) => event.indexOf(i) === -1);
-    diff.forEach((i) => this.form.removeControl(i));
-    event.forEach((i) => {
-      if (!this.form.controls[i]) {
-        if (i !== 'anteojos')
-          this.form.addControl(i, new FormControl(null, [Validators.min(0)]));
-        else this.form.addControl(i, new FormControl(null));
-      }
+      return response;
     });
+
+    this.filterTurnosEvent.emit(turnos);
+    return turnos;
   }
 
-  getFilteredList(list: Turno[], ctrl: AbstractControl, field: string) {
-    switch (field) {
-      case 'altura':
-        return list.filter((t: Turno) => {
-          return t.control?.altura == ctrl.value;
-        });
-      case 'peso':
-        return list.filter((t: Turno) => {
-          return t.control?.peso == ctrl.value;
-        });
-      case 'temperatura':
-        return list.filter((t: Turno) => {
-          return t.control?.temperatura == ctrl.value;
-        });
-      case 'presion':
-        return list.filter((t: Turno) => {
-          return t.control?.presion == ctrl.value;
-        });
-      default:
-        return list.filter((t: Turno) => {
-          let res = false;
-          t.control?.dinamico?.forEach((d) => {
-            if (
-              field !== 'anteojos' &&
-              d.clave === field &&
-              d.valor === parseInt(ctrl.value)
-            ) {
-              res = true;
-            } else if (d.clave === field && d.valor === ctrl.value) {
-              res = true;
-            }
-          });
-          return res;
-        });
-    }
+  reset() {
+    this.form.reset();
+    this.filter();
   }
 
   get esp() {
@@ -163,5 +191,29 @@ export class FilterTurnosComponent implements OnInit {
   }
   get plus() {
     return this.form.controls['plus'];
+  }
+  get altura() {
+    return this.form.controls['altura'];
+  }
+  get peso() {
+    return this.form.controls['peso'];
+  }
+  get temperatura() {
+    return this.form.controls['temperatura'];
+  }
+  get presion() {
+    return this.form.controls['presion'];
+  }
+  get caries() {
+    return this.form.controls['caries'];
+  }
+  get glucosa() {
+    return this.form.controls['glucosa'];
+  }
+  get anteojos() {
+    return this.form.controls['anteojos'];
+  }
+  get colesterol() {
+    return this.form.controls['colesterol'];
   }
 }

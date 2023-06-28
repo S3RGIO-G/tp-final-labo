@@ -35,6 +35,7 @@ export class ModalMotivosComponent {
     this.loadingEvent.emit(true);
     this.turnoService.updateTurnoById(this.turno).then(res=>{
       this.loadingEvent.emit(false);
+      this.form.reset();
     })
   }
 

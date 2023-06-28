@@ -87,7 +87,8 @@ export class TurnosComponent implements OnInit {
     });
 
     this.turnos = arrayTurnos;
-    this.turnosCopy = arrayTurnos;
+    if (!this.turnosCopy) this.turnosCopy = arrayTurnos;
+    else this.turnosCopy = this.filter.filter(arrayTurnos);
   }
 
   updateTurno() {

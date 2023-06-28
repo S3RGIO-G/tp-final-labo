@@ -32,7 +32,7 @@ export class ModalControlComponent {
   @Input() showModal!: boolean;
   @Output() hideModal = new EventEmitter<boolean>();
   @Output() controlData = new EventEmitter<Control>();
-  tags: string[] = ['caries', 'anteojos', 'glucosa', 'glob. rojos'];
+  tags: string[] = ['caries', 'anteojos', 'glucosa', 'colesterol'];
   form: FormGroup;
 
   constructor() {
