@@ -1,8 +1,9 @@
-# TpFinalLabo
+#Trabajo Practico Labo IV "La clinica"
+En este documento se detallará tanto las secciones que contiene, como su funcionamiento.
+<b>sdsd<b>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
-
-## Development server
+## Bienvenido
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/8c490f63-b30b-4408-bf74-f9180b035538)#
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
