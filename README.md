@@ -89,14 +89,21 @@ Solo pueden acceder un `Administrador`, esta seccion mostrará un listado de tod
 el cual se podrá filtar por todos sus campos, ademas de darle la posibilidad de **rechazar** un turno `pendiente` especificando los motivos. 
 <br>
 
-Tambien habrá un switch que alternará el **modo** en el cual se mostrará la información de la tabla así como su contenido. <br>
+Tambien habrá un switch que alternará el **modo** en el cual se mostrará la información de la tabla así como su contenido. 
+<br>
+<br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/1a80ae45-54e2-4a55-b230-e76e559f625b)
-![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/6d04c869-203f-4338-98a3-5e11afc1cb6c)
+<br>
 <br>
 Al activarlo, mostrara solo los turnos con estado `realizado` con todos los datos del control hecho por el `Especialista`:
+<br>
+<br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e1139429-8170-42fa-a4b7-861d776fe4ae)
 <br>
+<br>
 Ademas de agregar mas filtros:
+<br>
+<br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/2899d91a-195a-4458-a198-67b1d2e97e0a)
 
 
