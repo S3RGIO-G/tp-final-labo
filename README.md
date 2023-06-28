@@ -1,4 +1,4 @@
-# Trabajo Practico Labo IV "La clinica"
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/781fe0c9-d39a-4708-814d-6d30a1e26956)# Trabajo Practico Labo IV "La clinica"
 En este documento se detallará tanto las secciones que contiene, como su funcionamiento.
 <br>
 ## Bienvenido
@@ -77,12 +77,27 @@ Muestra los **pacientes** y al seleccionar uno, **exporta** la informacion de to
 ## Solicitar turno
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/10c1edcf-bf17-4853-80ae-36a8b25f8461)
 
-<br>
 Solo pueden acceder un `Paciente` o `Administrador`, para solicitar un turno se debe seleccionar al **especialista**, la **especialidad** y luego el turno disponible que mas se ajuste a su horario. 
 <br>
 Cabe recalcar que no todos los especialistas tienen turnos disponibles, esto depende de si crearon turnos o no.
 <br>
 En caso de que el usuario sea un `Administrador`, tambien debera seleccionar el **paciente** al que le asignará el turno.
+
+## Gestionar turnos
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/d6c1f701-db49-414b-8bf1-f56607ea2612)
+Solo pueden acceder un `Administrador`, esta seccion mostrará un listado de todos los turnos con un estado distinto a `libre`, 
+el cual se podrá filtar por todos sus campos, ademas de darle la posibilidad de **rechazar** un turno `pendiente` especificando los motivos. 
+<br>
+
+Tambien habrá un switch que alternará el **modo** en el cual se mostrará la información de la tabla así como su contenido. <br>
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/1a80ae45-54e2-4a55-b230-e76e559f625b)
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/6d04c869-203f-4338-98a3-5e11afc1cb6c)
+<br>
+Al activarlo, mostrara solo los turnos con estado `realizado` con todos los datos del control hecho por el `Especialista`:
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e1139429-8170-42fa-a4b7-861d776fe4ae)
+<br>
+Ademas de agregar mas filtros:
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/2899d91a-195a-4458-a198-67b1d2e97e0a)
 
 
 
