@@ -85,6 +85,7 @@ En caso de que el usuario sea un `Administrador`, tambien debera seleccionar el 
 
 ## Gestionar turnos
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/d6c1f701-db49-414b-8bf1-f56607ea2612)
+<br>
 Solo pueden acceder un `Administrador`, esta seccion mostrará un listado de todos los turnos con un estado distinto a `libre`, 
 el cual se podrá filtar por todos sus campos, ademas de darle la posibilidad de **rechazar** un turno `pendiente` especificando los motivos. 
 <br>
