@@ -99,6 +99,14 @@ const routes: Routes = [
       data:{animation: 'pacientes'},
   },
   {
+    path: 'estadisticas', //*Admin
+    title: 'Estadisticas',
+    loadComponent: () =>
+      import('./pages/estadisticas/estadisticas.component').then((m) => m.EstadisticasComponent),
+      canActivate: [LoginAdminGuard],
+      data:{animation: 'estadisticas'},
+  },
+  {
     path: '**',
     redirectTo: 'bienvenido',
     pathMatch: 'full',

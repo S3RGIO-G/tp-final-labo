@@ -84,14 +84,14 @@ export class FormValidator {
     }
   }
 
-  // static validDate(control: AbstractControl): ValidationErrors | null {
-  //   const valor = control.value;
-  //   const regex = /^([0-9]{4})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$/;
+  static validDate(control: AbstractControl): ValidationErrors | null {
+    const valor = control.value;
+    const regex = /^([0-9]{4})[-/](0[1-9]|1[012])[-/]([123]0|[012][1-9]|31)$/;
 
-  //   if (regex.test(valor)) {
-  //     return null;
-  //   } else {
-  //     return { validDate: true };
-  //   }
-  // }
+    if (regex.test(valor) || !valor) {
+      return null;
+    } else {
+      return { validDate: true };
+    }
+  }
 }

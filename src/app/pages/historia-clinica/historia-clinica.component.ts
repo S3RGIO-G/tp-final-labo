@@ -5,7 +5,7 @@ import { Administrador } from 'src/app/interfaces/administrador';
 import { Especialista } from 'src/app/interfaces/especialista';
 import { Paciente } from 'src/app/interfaces/paciente';
 import { Turno } from 'src/app/interfaces/turno';
-import { Route, Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { TurnoService } from 'src/app/services/turno.service';
 import { ModalReviewComponent } from 'src/app/components/modal-review/modal-review.component';

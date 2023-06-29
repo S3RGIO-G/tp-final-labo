@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { slider } from 'src/app/animations/route-animations';
 import { FabbtnAccountsComponent } from 'src/app/components/fabbtn-accounts/fabbtn-accounts.component';
 import { BtnScaleDirective } from 'src/app/directives/btn-scale.directive';
+import { LogService } from 'src/app/services/log.service';
 
 @Component({
   selector: 'app-login',
@@ -60,6 +61,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private horarioService: HorarioService,
+    private logService: LogService,
   ) {
     this.formLog = new FormGroup({
       email: new FormControl(),
@@ -110,7 +112,7 @@ export class LoginComponent implements OnInit {
             );
           }
         }
-
+        this.logService.addLogFromUser(currentUser);
         this.userService.setCurrentUser({ ...currentUser, id: user.uid } as
           | Administrador
           | Paciente

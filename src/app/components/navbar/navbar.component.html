@@ -6,6 +6,9 @@
         <span class="ms-2 text-white">Inicio</span>
       </a>
       <div *ngIf="usuario?.type === 1"  class="h-100">
+        <a class="fs-5 text-decoration-none text-light p-2" routerLink="/estadisticas">Estadisticas</a>
+      </div>
+      <div *ngIf="usuario?.type === 1"  class="h-100">
         <a class="fs-5 text-decoration-none text-light p-2" routerLink="/usuarios">Usuarios</a>
       </div>
       <div *ngIf="usuario?.type !== null">

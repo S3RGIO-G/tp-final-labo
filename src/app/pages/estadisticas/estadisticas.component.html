@@ -1,0 +1,93 @@
+<div class="main">
+  <mat-tab-group>
+    <mat-tab label="Logs">
+
+      <div class="content d-flex flex-column align-items-center py-5 gap-3">
+        <h2>Registro de logs</h2>
+
+        <div *ngIf="!loadingData" class="table-container p-4 bg-color-primary rounded">
+          <table class="table text-center text-capitalize text-light">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Dia</th>
+                <th>Hora</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr appRowTable color="#5e64a3" *ngFor="let log of logs" class="align-middle">
+                <td>{{log.nameUser}} {{log.lastNameUser}}</td>
+                <td>{{log.day}}</td>
+                <td>{{log.hour}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button *ngIf="!loadingData" class="btn bg-color-secondary text-light" (click)="exportToExcel()">
+          <i class="fa-solid fa-file-export"></i>
+          Excel
+        </button>
+
+        <div class="h-100 w-100">
+          <app-spinner-bootstrap *ngIf="loadingData"></app-spinner-bootstrap>
+        </div>
+      </div>
+
+    </mat-tab>
+
+    <mat-tab label="Turnos">
+
+      <div class="content d-flex flex-column align-items-center py-5 gap-3">
+
+        <div class="filter-container bg-color-primary rounded d-flex flex-column align-items-center p-3">
+          <h4 class="text-light">Mostrar por:</h4>
+          <form [formGroup]="form" class="row w-100 d-flex justify-content-center" (submit)="filtrar()">
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="form-floating mb-2">
+                <select id="select" formControlName="select" class="form-select">
+                  <option [ngValue]="1">Especialidad</option>
+                  <option [ngValue]="2">Dia</option>
+                  <option [ngValue]="3">Pendientes por Medico</option>
+                  <option [ngValue]="4">Finalizados por Medico</option>
+                </select>
+                <label for="select">Filtrar</label>
+              </div>
+            </div>
+
+            <ng-container *ngIf="select.value > 2">
+              <div class="col-12 col-sm-3">
+                <app-form-input controlName="desde" label="Desde"
+                  class="{{desde.errors? 'is-invalid': ''}}"></app-form-input>
+              </div>
+              <div class="col-12 col-sm-3">
+                <app-form-input controlName="hasta" label="Hasta"
+                  class="{{hasta.errors? 'is-invalid': ''}}"></app-form-input>
+              </div>
+            </ng-container>
+
+            <div class="col-12 col-sm-4 col-md-2 pb-2">
+              <button type="submit" class="btn bg-color-secondary w-100 h-100 text-light" [disabled]="loadingData">
+                Mostrar
+              </button>
+            </div>
+          </form>
+        </div>
+
+
+        <div #content class="d-flex justify-content-center">
+          <app-chart-pie #chart></app-chart-pie>
+        </div>
+
+        <button *ngIf="!loadingData" class="btn bg-color-secondary text-light" (click)="exportToPDF()">
+          <i class="fa-solid fa-file-export"></i>
+          PDF
+        </button>
+
+        <div>
+          <app-spinner-bootstrap *ngIf="loadingData"></app-spinner-bootstrap>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
