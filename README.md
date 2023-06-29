@@ -33,12 +33,12 @@ A este apartado solo pueden acceder los usuarios **logueados**, y en él se most
 Si el usuario es un **Especialista** se le mostrará el botón `Mis horarios`,
 y si es un **Paciente** se mostrará el botón `Ver mi historial`
 
-### Ver mi historial:
+### Ver mi historial
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/892480ba-ef2a-493b-89ec-d64b42fe4501)
 <br>
 Este botón enviará al paciente a la seccion `Historia Clinica`
 
-### Mis horarios: 
+### Mis horarios
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e44d961e-b28c-4c78-9ed1-610716fafc45)
 <br>
 Este boton despliega una ventana en la que el **especialista** podrá cambiar los dias que desea atender por cada especialidad que tenga. 
@@ -62,10 +62,10 @@ A esta seccion solo puede acceder el **administrador**, mostrará un listado de 
 Dentro de este listado podrá `habilitar` o `deshabilitar` el acceso de un **especialista** o consultar el `historial` de un **paciente**.
 <br>
 
-### Crear nuevo:
+### Crear nuevo
 Envia al **administrador** a la pagina de `registro` para que pueda dar de alta un usuario.
 <br>
-### Excel: 
+### Excel
 **Exporta** la informacion de los usuarios a una tabla en un documento `xlsx`.
 <br>
 ### FAB
