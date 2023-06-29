@@ -181,6 +181,7 @@ En este apartado se encontraran dos secciones: `Logs` y `Turnos`.
 
 ## Logs
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/a333605a-9158-43c3-b2c2-d4f77adb9b5f)
+<br>
 Mostrará una tabla con todos los registros de los inicio de sesión al sistema hechos por los usuarios. 
 Detallando **usuario**, **dia** y **hora**. <br>
 Además, el botón **Excel** exportará todos los datos a un documento `.xlsx` en formato de tabla 
@@ -188,6 +189,7 @@ Además, el botón **Excel** exportará todos los datos a un documento `.xlsx` e
 
 ## Turnos
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/02954221-097b-47a5-a6c7-9507659c34ed)
+<br>
 Mostrara un gráfico de torta con las estadisticas de los turnos dependiedo del filtro aplicado. <br>
 Además, el botón **PDF** exportará dicho gráfico a un documento `.pdf`.
 
