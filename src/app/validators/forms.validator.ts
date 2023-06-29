@@ -43,7 +43,6 @@ export class FormValidator {
       return { email: true };
     }
   }
-  
 
   static password(control: AbstractControl): ValidationErrors | null {
     const valor = control.value;
@@ -94,4 +93,41 @@ export class FormValidator {
       return { validDate: true };
     }
   }
+  static dateFrom(control: AbstractControl): ValidationErrors | null {
+    const valor = control.value;
+    const regex = /^([0-9]{4})[-/](0[1-9]|1[012])[-/]([123]0|[012][1-9]|31)$/;
+    const hasta = control.parent?.get('hasta');
+
+    if (regex.test(valor)) {
+      if (!hasta?.value || hasta?.hasError('validDate')) return null;
+      else {
+        console.log(valor, hasta?.value);
+        const d1 = new Date(valor).getTime();
+        const d2 = new Date(hasta.value).getTime();
+
+        return d1 < d2 ? null : { dateFrom: true };
+      }
+    } else {
+      return { dateFrom: true };
+    }
+  }
+  static dateTo(control: AbstractControl): ValidationErrors | null {
+    const valor = control.value;
+    const regex = /^([0-9]{4})[-/](0[1-9]|1[012])[-/]([123]0|[012][1-9]|31)$/;
+    const desde = control.parent?.get('desde');
+
+    if (regex.test(valor)) {
+      if (!desde?.value || desde?.hasError('validDate')) return null;
+      else {
+        console.log(valor, desde?.value);
+        const d1 = new Date(valor).getTime();
+        const d2 = new Date(desde.value).getTime();
+
+        return d1 > d2 ? null : { dateFrom: true };
+      }
+    } else {
+      return { validDate: true };
+    }
+  }
+
 }

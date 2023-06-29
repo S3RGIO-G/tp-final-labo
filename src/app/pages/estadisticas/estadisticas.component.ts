@@ -66,10 +66,12 @@ export class EstadisticasComponent {
       desde: new FormControl(null, [
         Validators.required,
         FormValidator.validDate,
+        FormValidator.dateFrom,
       ]),
       hasta: new FormControl(null, [
         Validators.required,
         FormValidator.validDate,
+        FormValidator.dateTo,
       ]),
     });
   }
@@ -83,8 +85,7 @@ export class EstadisticasComponent {
       this.logs.sort((x, y) => {
         const t1 = new Date(`${x.day} ${x.hour}`);
         const t2 = new Date(`${y.day} ${y.hour}`);
-
-        return t1 > t2 ? 1 : t1 < t2 ? -1 : 0;
+        return t1 > t2 ? -1 : t1 < t2 ? 1 : 0;
       });
       this.loadingData = false;
     });
@@ -173,10 +174,9 @@ export class EstadisticasComponent {
       const dia = new Date(t.fecha.split(' ')[0]).getTime();
       const desde = new Date(this.desde.value).getTime();
       const hasta = new Date(this.hasta.value).getTime();
-
       if (t.estado !== estado) {
         return false;
-      } else if (dia < desde && dia > hasta) {
+      } else if (dia < desde || dia > hasta) {
         return false;
       }
       return true;
@@ -188,14 +188,6 @@ export class EstadisticasComponent {
           item.counter++;
           return;
         }
-      });
-    });
-
-    const estructFormateado = [];
-    estruct.forEach((i: any) => {
-      estructFormateado.push({
-        name: i.name,
-        counter: i.counter,
       });
     });
 
@@ -269,7 +261,6 @@ export class EstadisticasComponent {
         hora: l.hour,
       });
     });
-
     this.exporterService.exportToExcel(data, 'logs');
   }
 
@@ -299,7 +290,7 @@ export class EstadisticasComponent {
         pdf.text(`Periodo ${this.desde.value} a ${this.hasta.value}`, 20, y);
         break;
     }
-    y+=30;
+    y += 30;
     this.data.forEach((d) => {
       pdf.setFontSize(14);
       pdf.text(`Total '${d.name}' : ${d.total}`, 20, y);
@@ -313,7 +304,7 @@ export class EstadisticasComponent {
     }).then((canvas) => {
       pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 140, y + 15, 400, 300);
     });
-    pdf.save('demos.pdf');
+    pdf.save('estadisticas' + `_${Date.now()}` + '.pdf');
   }
 
   get select() {

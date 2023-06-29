@@ -53,21 +53,21 @@ export class LoginComponent implements OnInit {
   formLog: FormGroup;
   textError?: string;
   user!: any;
-  key = "6LfYVrUmAAAAAA3FXerOH3cGzdfxLANSpXtyWf5I";
-  @ViewChild('main') main !: ElementRef;
+  key = '6LfYVrUmAAAAAA3FXerOH3cGzdfxLANSpXtyWf5I';
+  @ViewChild('main') main!: ElementRef;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
     private horarioService: HorarioService,
-    private logService: LogService,
+    private logService: LogService
   ) {
     this.formLog = new FormGroup({
       email: new FormControl(),
       password: new FormControl(),
       showPassword: new FormControl(),
-      captcha: new FormControl (null, [Validators.required])
+      captcha: new FormControl(null, [Validators.required]),
     });
   }
   ngOnInit(): void {}
@@ -112,10 +112,8 @@ export class LoginComponent implements OnInit {
             );
           }
         }
-        console.log(currentUser);
-        // console.log(object);
-        this.logService.addLogFromUser({ ...currentUser, id: user.uid });
 
+        this.logService.addLogFromUser({ ...currentUser, id: user.uid });
         this.userService.setCurrentUser({ ...currentUser, id: user.uid } as
           | Administrador
           | Paciente
@@ -163,7 +161,7 @@ export class LoginComponent implements OnInit {
     return this.formLog.controls['captcha'];
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.main.nativeElement.classList.add('main-close');
   }
 }
