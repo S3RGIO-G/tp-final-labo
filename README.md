@@ -68,7 +68,7 @@ Envia al **administrador** a la pagina de `registro` para que pueda dar de alta 
 ### Excel: 
 **Exporta** la informacion de los usuarios a una tabla en un documento `xlsx`.
 <br>
-### FAB:
+### FAB
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e0b94ec0-9308-42d1-beb4-1cbda1f133c0)
 <br>
 Muestra los **pacientes** y al seleccionar uno, **exporta** la informacion de todos sus turnos `realizados` a un documento `xlsx`.
@@ -113,7 +113,7 @@ Ademas de agregar mas filtros:
 Solo puede acceder un `Especialista`, mostrará una lista de todos los `Pacientes` que atendió por los menos **una vez** el `Especialista`, 
 desde este listado tambien podrá acceder a la **historia clinica** del `Paciente`.
 <br>
-### FAB:
+### FAB
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/c5871b7d-e4bc-43bd-ac2e-17793b4ef5e4)
 
 Este botón te permitirá elegir a un `Paciente` y al seleccionarlo, **cambiará el contenido** de la tabla y mostrará todos los **turnos** que tuvo ese paciente con el `Especialista`.
