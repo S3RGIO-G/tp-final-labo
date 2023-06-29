@@ -33,12 +33,12 @@ A este apartado solo pueden acceder los usuarios **logueados**, y en él se most
 Si el usuario es un **Especialista** se le mostrará el botón `Mis horarios`,
 y si es un **Paciente** se mostrará el botón `Ver mi historial`
 
-### Ver mi historial:
+### Ver mi historial
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/892480ba-ef2a-493b-89ec-d64b42fe4501)
 <br>
 Este botón enviará al paciente a la seccion `Historia Clinica`
 
-### Mis horarios: 
+### Mis horarios
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e44d961e-b28c-4c78-9ed1-610716fafc45)
 <br>
 Este boton despliega una ventana en la que el **especialista** podrá cambiar los dias que desea atender por cada especialidad que tenga. 
@@ -62,13 +62,13 @@ A esta seccion solo puede acceder el **administrador**, mostrará un listado de 
 Dentro de este listado podrá `habilitar` o `deshabilitar` el acceso de un **especialista** o consultar el `historial` de un **paciente**.
 <br>
 
-### Crear nuevo:
+### Crear nuevo
 Envia al **administrador** a la pagina de `registro` para que pueda dar de alta un usuario.
 <br>
-### Excel: 
+### Excel
 **Exporta** la informacion de los usuarios a una tabla en un documento `xlsx`.
 <br>
-### FAB:
+### FAB
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/e0b94ec0-9308-42d1-beb4-1cbda1f133c0)
 <br>
 Muestra los **pacientes** y al seleccionar uno, **exporta** la informacion de todos sus turnos `realizados` a un documento `xlsx`.
@@ -113,7 +113,7 @@ Ademas de agregar mas filtros:
 Solo puede acceder un `Especialista`, mostrará una lista de todos los `Pacientes` que atendió por los menos **una vez** el `Especialista`, 
 desde este listado tambien podrá acceder a la **historia clinica** del `Paciente`.
 <br>
-### FAB:
+### FAB
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/c5871b7d-e4bc-43bd-ac2e-17793b4ef5e4)
 
 Este botón te permitirá elegir a un `Paciente` y al seleccionarlo, **cambiará el contenido** de la tabla y mostrará todos los **turnos** que tuvo ese paciente con el `Especialista`.
@@ -174,6 +174,26 @@ Este botón exporta toda la informacion de la tabla a un documento PDF, permitie
 <br><br>
 ![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/ced8e951-e4e8-4b99-b297-f5cdbdaed6e4)
 <br>
+
+# Estadisticas
+Solo puede ingresar un `Administrador`. <br>
+En este apartado se encontraran dos secciones: `Logs` y `Turnos`.
+
+## Logs
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/a333605a-9158-43c3-b2c2-d4f77adb9b5f)
+<br>
+Mostrará una tabla con todos los registros de los inicio de sesión al sistema hechos por los usuarios. 
+Detallando **usuario**, **dia** y **hora**. <br>
+Además, el botón **Excel** exportará todos los datos a un documento `.xlsx` en formato de tabla 
+<br>
+
+## Turnos
+![image](https://github.com/S3RGIO-G/tp-final-labo/assets/60524882/02954221-097b-47a5-a6c7-9507659c34ed)
+<br>
+Mostrara un gráfico de torta con las estadisticas de los turnos dependiedo del filtro aplicado. <br>
+Además, el botón **PDF** exportará dicho gráfico a un documento `.pdf`.
+
+
 
 
 
