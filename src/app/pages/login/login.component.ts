@@ -112,7 +112,10 @@ export class LoginComponent implements OnInit {
             );
           }
         }
-        this.logService.addLogFromUser(currentUser);
+        console.log(currentUser);
+        // console.log(object);
+        this.logService.addLogFromUser({ ...currentUser, id: user.uid });
+
         this.userService.setCurrentUser({ ...currentUser, id: user.uid } as
           | Administrador
           | Paciente
